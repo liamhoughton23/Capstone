@@ -196,8 +196,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -210,13 +212,23 @@
     <Compile Include="Migrations\201802221530234_init 2.Designer.cs">
       <DependentUpon>201802221530234_init 2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802231623466_added alot of tables.cs" />
+    <Compile Include="Migrations\201802231623466_added alot of tables.Designer.cs">
+      <DependentUpon>201802231623466_added alot of tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802231941516_added line ups.cs" />
+    <Compile Include="Migrations\201802231941516_added line ups.Designer.cs">
+      <DependentUpon>201802231941516_added line ups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LineUp.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\OffenseStats.cs" />
+    <Compile Include="Models\PitchStats.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PossibleOutcomes.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
@@ -287,6 +299,16 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
+    <Content Include="Views\Coaches\Create.cshtml" />
+    <Content Include="Views\Coaches\Delete.cshtml" />
+    <Content Include="Views\Coaches\Details.cshtml" />
+    <Content Include="Views\Coaches\Edit.cshtml" />
+    <Content Include="Views\Coaches\Index.cshtml" />
+    <Content Include="Views\Players\Create.cshtml" />
+    <Content Include="Views\Players\Delete.cshtml" />
+    <Content Include="Views\Players\Details.cshtml" />
+    <Content Include="Views\Players\Edit.cshtml" />
+    <Content Include="Views\Players\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -305,6 +327,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802221530234_init 2.resx">
       <DependentUpon>201802221530234_init 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802231623466_added alot of tables.resx">
+      <DependentUpon>201802231623466_added alot of tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802231941516_added line ups.resx">
+      <DependentUpon>201802231941516_added line ups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

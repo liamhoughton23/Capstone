@@ -36,14 +36,17 @@ namespace CAPSTONE.Models
             return new ApplicationDbContext();
         }
 
-        DbSet<Coach> Coach { get; set; }
 
-        DbSet<Player> Player { get; set; }
+        public DbSet<OffenseStats> Offense { get; set; }
 
-        DbSet<OffenseStats> Offense { get; set; }
+        public DbSet<DefenseStats> Defense { get; set; }
 
-        DbSet<DefenseStats> Defense { get; set; }
+        public DbSet<PossibleOutcomes> Outcomes { get; set; }
 
+        public DbSet<Coach> Coaches { get; set; }
 
+        public DbSet<Player> Players { get; set; }
+
+        public DbSet<LineUp> Lineups { get; set; }
     }
 }

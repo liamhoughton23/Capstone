@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,12 @@ namespace CAPSTONE.Models
 {
     public class DefenseStats
     {
-        public int ID { get; set; }
-        [ForeignKey("Player")]
-        public virtual Player PlayerID { get; set; }
+        [Key]
+        public int Key { get; set; }
+
+        public int PlayerID { get; set; }
+        [ForeignKey("PlayerID")]
+        public virtual Player Player { get; set; }
 
         public int Positions { get; set; }
 

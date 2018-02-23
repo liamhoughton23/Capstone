@@ -16,9 +16,9 @@ namespace CAPSTONE.Models
 
         public string LastName { get; set; }
 
-        public int Coach { get; set; }
-        [ForeignKey("Coach")]
-        public  virtual Coach CoachID { get; set; }
+        public int CoachID { get; set; }
+        [ForeignKey("CoachID")]
+        public  virtual Coach Coach { get; set; }
 
 
     }
