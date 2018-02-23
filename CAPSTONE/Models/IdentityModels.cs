@@ -18,6 +18,12 @@ namespace CAPSTONE.Models
         }
     }
 
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base() { }
+        public ApplicationRole(string roleName):base(roleName) { }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -29,5 +35,15 @@ namespace CAPSTONE.Models
         {
             return new ApplicationDbContext();
         }
+
+        DbSet<Coach> Coach { get; set; }
+
+        DbSet<Player> Player { get; set; }
+
+        DbSet<OffenseStats> Offense { get; set; }
+
+        DbSet<DefenseStats> Defense { get; set; }
+
+
     }
 }
