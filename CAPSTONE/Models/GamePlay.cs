@@ -6,10 +6,14 @@ using System.Web;
 
 namespace CAPSTONE.Models
 {
-    public class PossibleOutcomes
+    public class GamePlay
     {
         [Key]
-        public int Play { get; set; }
+        public int PlayID { get; set; }
+
+        public int Inning { get; set; }
+
+        public int Outs { get; set; }
 
         public int Hit { get; set; }
 
@@ -36,8 +40,6 @@ namespace CAPSTONE.Models
         public int GRD { get; set; }
 
         public int Error { get; set; }
-
-
 
     }
 }

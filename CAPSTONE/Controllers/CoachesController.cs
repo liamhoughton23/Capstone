@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -52,7 +53,7 @@ namespace CAPSTONE.Controllers
             {
                 db.Coaches.Add(coach);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Home", "Coaches");
             }
 
             return View(coach);
@@ -123,5 +124,19 @@ namespace CAPSTONE.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Events()
+        {
+            return View();
+        }
+
+        public ActionResult Home()
+        {
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Users where row.Id == sameUser select row;
+            var resultToUser = result.FirstOrDefault();
+            return View(resultToUser);
+        }
+
     }
 }

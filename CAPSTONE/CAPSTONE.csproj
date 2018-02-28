@@ -220,6 +220,14 @@
     <Compile Include="Migrations\201802231941516_added line ups.Designer.cs">
       <DependentUpon>201802231941516_added line ups.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802281611346_added a bunch of tables.cs" />
+    <Compile Include="Migrations\201802281611346_added a bunch of tables.Designer.cs">
+      <DependentUpon>201802281611346_added a bunch of tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802281923401_added schedule.cs" />
+    <Compile Include="Migrations\201802281923401_added schedule.Designer.cs">
+      <DependentUpon>201802281923401_added schedule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
@@ -230,8 +238,12 @@
     <Compile Include="Models\OffenseStats.cs" />
     <Compile Include="Models\PitchStats.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\PossibleOutcomes.cs" />
+    <Compile Include="Models\GamePlay.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\SchedFund.cs" />
+    <Compile Include="Models\SchedGame.cs" />
+    <Compile Include="Models\SchedMeet.cs" />
+    <Compile Include="Models\SchedPractice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -309,6 +321,8 @@
     <Content Include="Views\Players\Details.cshtml" />
     <Content Include="Views\Players\Edit.cshtml" />
     <Content Include="Views\Players\Index.cshtml" />
+    <Content Include="Views\Coaches\Home.cshtml" />
+    <Content Include="Views\Coaches\Events.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802231941516_added line ups.resx">
       <DependentUpon>201802231941516_added line ups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802281611346_added a bunch of tables.resx">
+      <DependentUpon>201802281611346_added a bunch of tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802281923401_added schedule.resx">
+      <DependentUpon>201802281923401_added schedule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
