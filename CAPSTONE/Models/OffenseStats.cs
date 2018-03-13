@@ -16,38 +16,65 @@ namespace CAPSTONE.Models
         [ForeignKey("Player")]
         public virtual Player PlayerID { get; set; }
 
-        public int AtBats { get; set; }
+        public int TotalPlateAppearances { get; set; }
 
-        public int Runs { get; set; }
+        public int OfficialAtBats { get; set; }
 
-        public int Hits { get; set; }
-
-        public int FirstBase { get; set; }
-
-        public int SecondBase { get; set; }
-
-        public int ThirdBase { get; set; }
-
-        public int HR { get; set; }
-
-        public int RBI { get; set; }
-
-        public int Walks { get; set; }
-
-        public int StrikeOuts { get; set; }
-
-        public int StolenBases { get; set; }
-
-        public int CaughtStolenBases { get; set; }
+        public int TotalHits { get; set; }
 
         public float BA { get; set; }
 
-        public float OBP { get; set; }
-
         public float SLG { get; set; }
 
-        public float OPS { get; set; }
+        public float TotalBases { get; set; }
 
-        public float RC { get; set; }
+        public float OBP { get; set; }
+
+        public float BOBP { get; set; }
+
+        public float SBP { get; set; }
+
+        public float HRR { get; set; }
+
+        public float SOR { get; set; }
+
+        public float OCR { get; set; }
+
+        public float RunsCreated { get; set; }
+
+
+        //public int AtBats { get; set; }
+
+        //public int Runs { get; set; }
+
+        //public int Hits { get; set; }
+
+        //public int FirstBase { get; set; }
+
+        //public int SecondBase { get; set; }
+
+        //public int ThirdBase { get; set; }
+
+        //public int HR { get; set; }
+
+        //public int RBI { get; set; }
+
+        //public int Walks { get; set; }
+
+        //public int StrikeOuts { get; set; }
+
+        //public int StolenBases { get; set; }
+
+        //public int CaughtStolenBases { get; set; }
+
+        //public float BA { get; set; }
+
+        //public float OBP { get; set; }
+
+        //public float SLG { get; set; }
+
+        //public float OPS { get; set; }
+
+        //public float RC { get; set; }
     }
 }

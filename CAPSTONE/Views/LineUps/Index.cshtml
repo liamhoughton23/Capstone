@@ -1,0 +1,135 @@
+﻿@model IEnumerable<CAPSTONE.Models.LineUp>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LeadOff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeadOffPosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TwoHitPosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThreeHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThreePosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FourHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fourposition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FiveHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FivePosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SixHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SixPosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SevenHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SevenPosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EightHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EightPosition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NineHitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NinePosition)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeadOff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeadOffPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecondHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TwoHitPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThreeHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThreePosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FourHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fourposition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FiveHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FivePosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SixHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SixPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SevenHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SevenPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EightHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EightPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NineHitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NinePosition)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -24,7 +24,7 @@ namespace CAPSTONE
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-super.css",
                       "~/Content/site.css"));
         }
     }

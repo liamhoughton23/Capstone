@@ -41,7 +41,7 @@ namespace CAPSTONE.Models
 
         public DbSet<DefenseStats> Defense { get; set; }
 
-        public DbSet<GamePlay> Outcomes { get; set; }
+        public DbSet<SubmitOffense> Outcomes { get; set; }
 
         public DbSet<Coach> Coaches { get; set; }
 

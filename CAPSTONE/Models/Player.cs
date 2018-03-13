@@ -21,5 +21,9 @@ namespace CAPSTONE.Models
         public  virtual Coach Coach { get; set; }
 
 
+
+
+
+
     }
 }

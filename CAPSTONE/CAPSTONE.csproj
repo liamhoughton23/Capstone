@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LineUpsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -228,6 +229,18 @@
     <Compile Include="Migrations\201802281923401_added schedule.Designer.cs">
       <DependentUpon>201802281923401_added schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803021428236_idk.cs" />
+    <Compile Include="Migrations\201803021428236_idk.Designer.cs">
+      <DependentUpon>201803021428236_idk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803021533213_big shits.cs" />
+    <Compile Include="Migrations\201803021533213_big shits.Designer.cs">
+      <DependentUpon>201803021533213_big shits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803121646447_line up change.cs" />
+    <Compile Include="Migrations\201803121646447_line up change.Designer.cs">
+      <DependentUpon>201803121646447_line up change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
@@ -238,7 +251,8 @@
     <Compile Include="Models\OffenseStats.cs" />
     <Compile Include="Models\PitchStats.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\GamePlay.cs" />
+    <Compile Include="Models\SubmitDefense.cs" />
+    <Compile Include="Models\SubmitOffense.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\SchedFund.cs" />
     <Compile Include="Models\SchedGame.cs" />
@@ -248,6 +262,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-super.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -323,6 +338,11 @@
     <Content Include="Views\Players\Index.cshtml" />
     <Content Include="Views\Coaches\Home.cshtml" />
     <Content Include="Views\Coaches\Events.cshtml" />
+    <Content Include="Views\LineUps\Create.cshtml" />
+    <Content Include="Views\LineUps\Delete.cshtml" />
+    <Content Include="Views\LineUps\Details.cshtml" />
+    <Content Include="Views\LineUps\Edit.cshtml" />
+    <Content Include="Views\LineUps\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -353,6 +373,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802281923401_added schedule.resx">
       <DependentUpon>201802281923401_added schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803021428236_idk.resx">
+      <DependentUpon>201803021428236_idk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803021533213_big shits.resx">
+      <DependentUpon>201803021533213_big shits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803121646447_line up change.resx">
+      <DependentUpon>201803121646447_line up change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

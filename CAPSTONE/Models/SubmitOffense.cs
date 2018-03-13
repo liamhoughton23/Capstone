@@ -6,11 +6,9 @@ using System.Web;
 
 namespace CAPSTONE.Models
 {
-    public class GamePlay
+    public class SubmitOffense
     {
         [Key]
-        public int PlayID { get; set; }
-
         public int Inning { get; set; }
 
         public int Outs { get; set; }
