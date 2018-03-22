@@ -7,7 +7,7 @@ namespace CAPSTONE.HelperClasses
 {
     public class OffenseHelpers
     {
-        public int Apearances(int plateAppearances)
+        public int Appearances(int plateAppearances)
         {
             int totalPlateAppearances = plateAppearances;
             return totalPlateAppearances;
@@ -68,6 +68,13 @@ namespace CAPSTONE.HelperClasses
         {
             float runCreated = (hits + BB) * totalBases / atBats + BB;
             float rounded = (float)(Math.Round((double)runCreated, 3));
+            return rounded;
+        }
+
+        public float StrikeOutPercentage(int officialAtBats, int strikeOuts)
+        {
+            float percentage = officialAtBats / strikeOuts;
+            float rounded = (float)(Math.Round((double)percentage, 3));
             return rounded;
         }
 

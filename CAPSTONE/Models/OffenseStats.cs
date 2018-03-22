@@ -26,7 +26,6 @@ namespace CAPSTONE.Models
 
         public float SLG { get; set; }
 
-        public float TotalBases { get; set; }
 
         public float OBP { get; set; }
 

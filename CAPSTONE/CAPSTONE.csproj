@@ -217,6 +217,14 @@
     <Compile Include="Migrations\201803222033108_first migration.Designer.cs">
       <DependentUpon>201803222033108_first migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803222138329_added total bases to a table.cs" />
+    <Compile Include="Migrations\201803222138329_added total bases to a table.Designer.cs">
+      <DependentUpon>201803222138329_added total bases to a table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803222229467_deleted total basees.cs" />
+    <Compile Include="Migrations\201803222229467_deleted total basees.Designer.cs">
+      <DependentUpon>201803222229467_deleted total basees.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
@@ -361,6 +369,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803222033108_first migration.resx">
       <DependentUpon>201803222033108_first migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803222138329_added total bases to a table.resx">
+      <DependentUpon>201803222138329_added total bases to a table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803222229467_deleted total basees.resx">
+      <DependentUpon>201803222229467_deleted total basees.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

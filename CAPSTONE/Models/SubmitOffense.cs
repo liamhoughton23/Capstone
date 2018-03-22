@@ -26,6 +26,8 @@ namespace CAPSTONE.Models
 
         public int HRs { get; set; }
 
+        public int TotalBases { get; set; }
+
         public int Walks { get; set; }
 
         public int HBP { get; set; }
