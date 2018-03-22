@@ -197,49 +197,25 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
+    <Compile Include="Controllers\DefenseStatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineUpsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OffenseStatsController.cs" />
+    <Compile Include="Controllers\PitchStatsController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SubmitDefensesController.cs" />
+    <Compile Include="Controllers\SubmitOffensesController.cs" />
+    <Compile Include="Controllers\SubmitPitchingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802221527244_init.cs" />
-    <Compile Include="Migrations\201802221527244_init.Designer.cs">
-      <DependentUpon>201802221527244_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802221530234_init 2.cs" />
-    <Compile Include="Migrations\201802221530234_init 2.Designer.cs">
-      <DependentUpon>201802221530234_init 2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802231623466_added alot of tables.cs" />
-    <Compile Include="Migrations\201802231623466_added alot of tables.Designer.cs">
-      <DependentUpon>201802231623466_added alot of tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802231941516_added line ups.cs" />
-    <Compile Include="Migrations\201802231941516_added line ups.Designer.cs">
-      <DependentUpon>201802231941516_added line ups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802281611346_added a bunch of tables.cs" />
-    <Compile Include="Migrations\201802281611346_added a bunch of tables.Designer.cs">
-      <DependentUpon>201802281611346_added a bunch of tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802281923401_added schedule.cs" />
-    <Compile Include="Migrations\201802281923401_added schedule.Designer.cs">
-      <DependentUpon>201802281923401_added schedule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803021428236_idk.cs" />
-    <Compile Include="Migrations\201803021428236_idk.Designer.cs">
-      <DependentUpon>201803021428236_idk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803021533213_big shits.cs" />
-    <Compile Include="Migrations\201803021533213_big shits.Designer.cs">
-      <DependentUpon>201803021533213_big shits.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803121646447_line up change.cs" />
-    <Compile Include="Migrations\201803121646447_line up change.Designer.cs">
-      <DependentUpon>201803121646447_line up change.cs</DependentUpon>
+    <Compile Include="HelperClasses\DefenseHelpers.cs" />
+    <Compile Include="HelperClasses\OffenseHelpers.cs" />
+    <Compile Include="Migrations\201803222033108_first migration.cs" />
+    <Compile Include="Migrations\201803222033108_first migration.Designer.cs">
+      <DependentUpon>201803222033108_first migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -258,6 +234,7 @@
     <Compile Include="Models\SchedGame.cs" />
     <Compile Include="Models\SchedMeet.cs" />
     <Compile Include="Models\SchedPractice.cs" />
+    <Compile Include="Models\SubmitPitching.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -338,11 +315,37 @@
     <Content Include="Views\Players\Index.cshtml" />
     <Content Include="Views\Coaches\Home.cshtml" />
     <Content Include="Views\Coaches\Events.cshtml" />
-    <Content Include="Views\LineUps\Create.cshtml" />
-    <Content Include="Views\LineUps\Delete.cshtml" />
-    <Content Include="Views\LineUps\Details.cshtml" />
-    <Content Include="Views\LineUps\Edit.cshtml" />
-    <Content Include="Views\LineUps\Index.cshtml" />
+    <Content Include="Views\Coaches\RegisterPlayers.cshtml" />
+    <Content Include="Views\SubmitDefenses\Create.cshtml" />
+    <Content Include="Views\SubmitDefenses\Delete.cshtml" />
+    <Content Include="Views\SubmitDefenses\Details.cshtml" />
+    <Content Include="Views\SubmitDefenses\Edit.cshtml" />
+    <Content Include="Views\SubmitDefenses\Index.cshtml" />
+    <Content Include="Views\SubmitPitchings\Create.cshtml" />
+    <Content Include="Views\SubmitPitchings\Delete.cshtml" />
+    <Content Include="Views\SubmitPitchings\Details.cshtml" />
+    <Content Include="Views\SubmitPitchings\Edit.cshtml" />
+    <Content Include="Views\SubmitPitchings\Index.cshtml" />
+    <Content Include="Views\OffenseStats\Create.cshtml" />
+    <Content Include="Views\OffenseStats\Delete.cshtml" />
+    <Content Include="Views\OffenseStats\Details.cshtml" />
+    <Content Include="Views\OffenseStats\Edit.cshtml" />
+    <Content Include="Views\OffenseStats\Index.cshtml" />
+    <Content Include="Views\DefenseStats\Create.cshtml" />
+    <Content Include="Views\DefenseStats\Delete.cshtml" />
+    <Content Include="Views\DefenseStats\Details.cshtml" />
+    <Content Include="Views\DefenseStats\Edit.cshtml" />
+    <Content Include="Views\DefenseStats\Index.cshtml" />
+    <Content Include="Views\PitchStats\Create.cshtml" />
+    <Content Include="Views\PitchStats\Delete.cshtml" />
+    <Content Include="Views\PitchStats\Details.cshtml" />
+    <Content Include="Views\PitchStats\Edit.cshtml" />
+    <Content Include="Views\PitchStats\Index.cshtml" />
+    <Content Include="Views\SubmitOffenses\Create.cshtml" />
+    <Content Include="Views\SubmitOffenses\Delete.cshtml" />
+    <Content Include="Views\SubmitOffenses\Details.cshtml" />
+    <Content Include="Views\SubmitOffenses\Edit.cshtml" />
+    <Content Include="Views\SubmitOffenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,32 +359,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802221527244_init.resx">
-      <DependentUpon>201802221527244_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802221530234_init 2.resx">
-      <DependentUpon>201802221530234_init 2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802231623466_added alot of tables.resx">
-      <DependentUpon>201802231623466_added alot of tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802231941516_added line ups.resx">
-      <DependentUpon>201802231941516_added line ups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802281611346_added a bunch of tables.resx">
-      <DependentUpon>201802281611346_added a bunch of tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802281923401_added schedule.resx">
-      <DependentUpon>201802281923401_added schedule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803021428236_idk.resx">
-      <DependentUpon>201803021428236_idk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803021533213_big shits.resx">
-      <DependentUpon>201803021533213_big shits.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803121646447_line up change.resx">
-      <DependentUpon>201803121646447_line up change.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803222033108_first migration.resx">
+      <DependentUpon>201803222033108_first migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

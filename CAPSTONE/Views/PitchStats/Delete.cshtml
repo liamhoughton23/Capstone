@@ -1,0 +1,128 @@
+﻿@model CAPSTONE.Models.PitchStats
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PitchStats</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EarnedRunAvereage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EarnedRunAvereage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpponentBattingAverage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpponentBattingAverage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WHIP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WHIP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StrikeOuts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StrikeOuts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StrikeOutPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StrikeOutPercentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickOffPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickOffPercentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HitBatterRatio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HitBatterRatio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WalksPerAtBat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WalksPerAtBat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WalksPerInning)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WalksPerInning)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HRratio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRratio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StrikeOutRatio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StrikeOutRatio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StrikeOutPerWalkRatio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StrikeOutPerWalkRatio)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

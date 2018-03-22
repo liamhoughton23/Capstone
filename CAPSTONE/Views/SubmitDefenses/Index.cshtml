@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CAPSTONE.Models.SubmitDefense>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Attempts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Errors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InningsPlayed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PutOuts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assists)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Attempts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Errors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InningsPlayed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PutOuts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assists)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GameID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GameID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GameID })
+        </td>
+    </tr>
+}
+
+</table>

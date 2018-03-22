@@ -1,0 +1,130 @@
+﻿@model CAPSTONE.Models.OffenseStats
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OffenseStats</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerID.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerID.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPlateAppearances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPlateAppearances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficialAtBats)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficialAtBats)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalHits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalHits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SLG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalBases)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalBases)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OBP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OBP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BOBP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BOBP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SBP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SBP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HRR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OCR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OCR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunsCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunsCreated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Key }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

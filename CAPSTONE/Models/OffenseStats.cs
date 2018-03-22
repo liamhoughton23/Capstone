@@ -34,11 +34,7 @@ namespace CAPSTONE.Models
 
         public float SBP { get; set; }
 
-        public float HRR { get; set; }
-
         public float SOR { get; set; }
-
-        public float OCR { get; set; }
 
         public float RunsCreated { get; set; }
 

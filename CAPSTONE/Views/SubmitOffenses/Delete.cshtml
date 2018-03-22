@@ -1,0 +1,168 @@
+﻿@model CAPSTONE.Models.SubmitOffense
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SubmitOffense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlateAppearances)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlateAppearances)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Singles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Singles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doubles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doubles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Triples)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Triples)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HRs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HRs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Walks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Walks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HBP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HBP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scrifices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scrifices)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnByFeildersChoice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnByFeildersChoice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnByInterference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnByInterference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DroppedThirdStrike)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DroppedThirdStrike)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StolenBases)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StolenBases)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StolenBaseAttempts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StolenBaseAttempts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherBattingOuts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherBattingOuts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RBIs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RBIs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunsScored)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunsScored)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

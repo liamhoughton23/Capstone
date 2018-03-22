@@ -1,0 +1,72 @@
+﻿@model CAPSTONE.Models.SubmitDefense
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SubmitDefense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Attempts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Attempts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Errors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Errors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InningsPlayed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InningsPlayed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PutOuts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PutOuts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Assists)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Assists)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

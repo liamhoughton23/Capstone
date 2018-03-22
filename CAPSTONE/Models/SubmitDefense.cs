@@ -16,6 +16,7 @@ namespace CAPSTONE.Models
         [ForeignKey("PlayerID")]
         public virtual Player Player { get; set; }
 
+        public int Positions { get; set; }
 
         public int Attempts { get; set; }
 

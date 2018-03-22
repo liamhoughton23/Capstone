@@ -1,0 +1,111 @@
+﻿@model IEnumerable<CAPSTONE.Models.OffenseStats>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerID.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPlateAppearances)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficialAtBats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalHits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SLG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalBases)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OBP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BOBP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SBP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HRR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OCR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunsCreated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerID.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPlateAppearances)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficialAtBats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalHits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SLG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalBases)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OBP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BOBP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SBP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HRR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OCR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunsCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Key }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Key }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Key })
+        </td>
+    </tr>
+}
+
+</table>

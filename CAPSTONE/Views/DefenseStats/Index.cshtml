@@ -1,0 +1,87 @@
+﻿@model IEnumerable<CAPSTONE.Models.DefenseStats>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Positions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Games)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assists)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Errors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoublePlays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FPCT)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Positions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Games)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assists)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Errors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoublePlays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FPCT)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Key }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Key }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Key })
+        </td>
+    </tr>
+}
+
+</table>

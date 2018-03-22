@@ -41,12 +41,26 @@ namespace CAPSTONE.Models
 
         public DbSet<DefenseStats> Defense { get; set; }
 
-        public DbSet<SubmitOffense> Outcomes { get; set; }
-
         public DbSet<Coach> Coaches { get; set; }
 
         public DbSet<Player> Players { get; set; }
 
         public DbSet<LineUp> Lineups { get; set; }
-    }
+
+        public DbSet<SubmitDefense> SubmitDefenses { get; set; }
+
+        public DbSet<SubmitPitching> SubmitPitchings { get; set; }
+
+        public DbSet<PitchStats> PitchStats { get; set; }
+
+        public DbSet<SubmitOffense> SubmitOffenses { get; set; }
+
+        public DbSet<SchedFund> SchedFunds { get; set; }
+
+        public DbSet<SchedMeet> ShedMeets { get; set; }
+
+        public DbSet <SchedGame> SchedGames { get; set; }
+
+        public DbSet <SchedPractice> SchedPractices { get; set; }
+     }
 }
