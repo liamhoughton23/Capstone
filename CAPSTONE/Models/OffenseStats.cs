@@ -12,9 +12,9 @@ namespace CAPSTONE.Models
         [Key]
         public int Key { get; set; }
 
-        public int Player { get; set; }
-        [ForeignKey("Player")]
-        public virtual Player PlayerID { get; set; }
+        public int PlayerID { get; set; }
+        [ForeignKey("PlayerID")]
+        public virtual Player Player { get; set; }
 
         public int TotalPlateAppearances { get; set; }
 
@@ -22,20 +22,19 @@ namespace CAPSTONE.Models
 
         public int TotalHits { get; set; }
 
-        public float BA { get; set; }
+        public decimal BA { get; set; }
 
-        public float SLG { get; set; }
+        public decimal SLG { get; set; }
 
+        public decimal OBP { get; set; }
 
-        public float OBP { get; set; }
+        public decimal BOBP { get; set; }
 
-        public float BOBP { get; set; }
+        public decimal SBP { get; set; }
 
-        public float SBP { get; set; }
+        public decimal SOR { get; set; }
 
-        public float SOR { get; set; }
-
-        public float RunsCreated { get; set; }
+        public decimal RunsCreated { get; set; }
 
 
         //public int AtBats { get; set; }

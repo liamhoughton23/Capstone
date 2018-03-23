@@ -18,7 +18,7 @@ namespace CAPSTONE.Controllers
         // GET: OffenseStats
         public ActionResult Index()
         {
-            var offense = db.Offense.Include(o => o.PlayerID);
+            var offense = db.Offense.Include(o => o.Player);
             return View(offense.ToList());
         }
 
@@ -60,20 +60,7 @@ namespace CAPSTONE.Controllers
             }
 
             ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName", offenseStats.Player);
-            OffenseHelpers helpers = new OffenseHelpers();
-            offenseStats.TotalPlateAppearances = helpers.Appearances(subOffense.PlateAppearances);
-            offenseStats.OfficialAtBats = helpers.OfficialAtBatsCalculator(subOffense.PlateAppearances, subOffense.Walks, subOffense.HBP, subOffense.Scrifices);
-            offenseStats.TotalHits = helpers.TotalHitsCalulator(subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs);
-            //offenseStats.TotalBases = helpers.TotalBasesCalc(subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs);
-            db.SaveChanges();
-            offenseStats.BA = helpers.BattingAverageCalculator(offenseStats.TotalHits, offenseStats.OfficialAtBats);
-            offenseStats.SLG = helpers.SluggingPercengateCalculator(subOffense.TotalBases, offenseStats.OfficialAtBats);
-            offenseStats.OBP = helpers.OnBasePercentageCalculator(offenseStats.TotalHits, subOffense.Walks, subOffense.HBP, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.OnByFeildersChoice, offenseStats.OfficialAtBats, subOffense.Scrifices);
-            offenseStats.BOBP = helpers.BaseOnBallsPercentage(subOffense.Walks, offenseStats.TotalPlateAppearances);
-            offenseStats.SBP = helpers.StolenBasePercentage(subOffense.StolenBases, subOffense.StolenBases);
-            offenseStats.SOR = helpers.StrikeOutPercentage(offenseStats.OfficialAtBats, subOffense.SO);
-            offenseStats.RunsCreated = helpers.RunsCreatedCalcuator(offenseStats.TotalHits, subOffense.Walks, subOffense.TotalBases, offenseStats.OfficialAtBats);
-            db.SaveChanges();
+
             return View(offenseStats);
         }
 
@@ -145,9 +132,5 @@ namespace CAPSTONE.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult GenerateStats()
-        {
-            
-        }
     }
 }

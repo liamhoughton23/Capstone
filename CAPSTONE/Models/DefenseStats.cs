@@ -32,7 +32,7 @@ namespace CAPSTONE.Models
 
         public int DoublePlays { get; set; }
 
-        public float FPCT { get; set; }
+        public decimal FPCT { get; set; }
 
 
     }

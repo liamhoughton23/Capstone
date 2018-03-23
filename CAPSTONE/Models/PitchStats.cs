@@ -16,29 +16,29 @@ namespace CAPSTONE.Models
         [ForeignKey("PlayerID")]
         public virtual Player Player { get; set; }
 
-        public float EarnedRunAvereage { get; set; }
+        public decimal EarnedRunAvereage { get; set; }
 
-        public float OpponentBattingAverage { get; set; }
+        public decimal OpponentBattingAverage { get; set; }
 
-        public float WHIP { get; set; }
+        public decimal WHIP { get; set; }
 
-        public int StrikeOuts { get; set; }
+        public decimal StrikeOuts { get; set; }
 
-        public float StrikeOutPercentage { get; set; }
+        public decimal StrikeOutPercentage { get; set; }
 
-        public float PickOffPercentage { get; set; }
+        public decimal PickOffPercentage { get; set; }
 
-        public float HitBatterRatio { get; set; }
+        public decimal HitBatterRatio { get; set; }
 
-        public float WalksPerAtBat { get; set; }
+        public decimal WalksPerAtBat { get; set; }
 
-        public float WalksPerInning { get; set; }
+        public decimal WalksPerInning { get; set; }
 
-        public float HRratio { get; set; }
+        public decimal HRratio { get; set; }
 
-        public float StrikeOutRatio { get; set; }
+        public decimal StrikeOutRatio { get; set; }
 
-        public float StrikeOutPerWalkRatio { get; set; }
+        public decimal StrikeOutPerWalkRatio { get; set; }
 
         //public int Wins { get; set; }
 

@@ -7,13 +7,13 @@ namespace CAPSTONE.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class firstmigration : IMigrationMetadata
+    public sealed partial class deletedeverything : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(firstmigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(deletedeverything));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803222033108_first migration"; }
+            get { return "201803230117483_deleted everything"; }
         }
         
         string IMigrationMetadata.Source

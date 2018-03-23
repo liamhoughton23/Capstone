@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
+using CAPSTONE.HelperClasses;
 
 namespace CAPSTONE.Controllers
 {
@@ -48,18 +49,32 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Game,PlayerID,PlateAppearances,Singles,Doubles,Triples,HRs,Walks,HBP,Scrifices,OnByFeildersChoice,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] SubmitOffense submitOffense, OffenseStats offenseStats)
+        public ActionResult Create([Bind(Include = "Game,PlayerID,PlateAppearances,Singles,Doubles,Triples,HRs,Walks,HBP,Scrifices,OnByFeildersChoice,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] SubmitOffense subOffense)
         {
             if (ModelState.IsValid)
             {
-                db.SubmitOffenses.Add(submitOffense);
-                //offenseStats.Player = submitOffense.PlayerID;
+                db.SubmitOffenses.Add(subOffense);
+                OffenseStats offenseStats = new OffenseStats();
+                offenseStats.Player = subOffense.Player;
+                OffenseHelpers helpers = new OffenseHelpers();
+                offenseStats.TotalPlateAppearances = helpers.Appearances(subOffense.PlateAppearances);
+                offenseStats.OfficialAtBats = helpers.OfficialAtBatsCalculator(subOffense.PlateAppearances, subOffense.Walks, subOffense.HBP, subOffense.Scrifices);
+                offenseStats.TotalHits = helpers.TotalHitsCalulator(subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs);
+                //offenseStats.TotalBases = helpers.TotalBasesCalc(subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs);
                 db.SaveChanges();
-                return RedirectToAction("Create", "OffenseStats");
+                offenseStats.BA = helpers.BattingAverageCalculator(offenseStats.TotalHits, offenseStats.OfficialAtBats);
+                offenseStats.SLG = helpers.SluggingPercengateCalculator(subOffense.TotalBases, offenseStats.OfficialAtBats);
+                offenseStats.OBP = helpers.OnBasePercentageCalculator(offenseStats.TotalHits, subOffense.Walks, subOffense.HBP, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.OnByFeildersChoice, offenseStats.OfficialAtBats, subOffense.Scrifices);
+                offenseStats.BOBP = helpers.BaseOnBallsPercentage(subOffense.Walks, offenseStats.TotalPlateAppearances);
+                offenseStats.SBP = helpers.StolenBasePercentage(subOffense.StolenBases, subOffense.StolenBases);
+                offenseStats.SOR = helpers.StrikeOutPercentage(offenseStats.OfficialAtBats, subOffense.SO);
+                offenseStats.RunsCreated = helpers.RunsCreatedCalcuator(offenseStats.TotalHits, subOffense.Walks, subOffense.TotalBases, offenseStats.OfficialAtBats);
+                db.SaveChanges();
+                return RedirectToAction("Index", "OffenseStats");
             }
 
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", submitOffense.PlayerID);
-            return View(submitOffense);
+            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", subOffense.PlayerID);
+            return View(subOffense);
         }
 
         // GET: SubmitOffenses/Edit/5

@@ -25,22 +25,22 @@ namespace CAPSTONE.HelperClasses
             return totalHits;
         }
 
-        public float BattingAverageCalculator(int totalHits, int atBats)
+        public decimal BattingAverageCalculator(int totalHits, int atBats)
         {
-            float battingAverage = totalHits / atBats;
+            decimal battingAverage = (decimal)totalHits / (decimal)atBats;
             return battingAverage; 
         }
 
-        public float SluggingPercengateCalculator(int totalBases, int officialAtBats)
+        public decimal SluggingPercengateCalculator(int totalBases, int officialAtBats)
         {
-            float sluggingPercentage = totalBases / officialAtBats;
+            decimal sluggingPercentage = (decimal)totalBases / (decimal)officialAtBats;
             return sluggingPercentage;
         }
 
-        public float OnBasePercentageCalculator(int hits, int walks, int HBP, int onBaseInter, int onBaseDroppedThirdSt, int onBaseFC, int officialAtBats, int sacrifices)
+        public decimal OnBasePercentageCalculator(int hits, int walks, int HBP, int onBaseInter, int onBaseDroppedThirdSt, int onBaseFC, int officialAtBats, int sacrifices)
         {
-            float onBasePercentage = (hits + walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseInter + onBaseFC) / (officialAtBats + hits + walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseFC + sacrifices);
-            float rounded = (float)(Math.Round((double)onBasePercentage, 3));
+            decimal onBasePercentage = (decimal)hits + (decimal)walks + (decimal)HBP + (decimal)onBaseInter + (decimal)onBaseDroppedThirdSt + (decimal)onBaseInter + (decimal)onBaseFC / (decimal)officialAtBats + (decimal)hits + (decimal)walks + (decimal)HBP + (decimal)onBaseInter + (decimal)onBaseDroppedThirdSt + (decimal)onBaseFC + (decimal)sacrifices;
+            decimal rounded = (decimal)(Math.Round((decimal)onBasePercentage, 3));
             return rounded;
         }
 
@@ -50,31 +50,40 @@ namespace CAPSTONE.HelperClasses
             return totalBases;
         }
 
-        public float BaseOnBallsPercentage(int walks, int totalPlateAppearances)
+        public decimal BaseOnBallsPercentage(int walks, int totalPlateAppearances)
         {
-            float percentage = walks / totalPlateAppearances;
-            float rounded = (float)(Math.Round((double)percentage, 3));
+            decimal percentage = walks / totalPlateAppearances;
+            decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
             return rounded;
         }
 
-        public float StolenBasePercentage(int stolenBases, int stolenBaseAttempts)
+        public decimal StolenBasePercentage(int stolenBases, int stolenBaseAttempts)
         {
-            float percentage = stolenBases / stolenBaseAttempts;
-            float rounded = (float)(Math.Round((double)percentage, 3));
+            if (stolenBaseAttempts != 0)
+            {
+                decimal percentage = stolenBases / stolenBaseAttempts;
+                decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
+                return rounded;
+            }
+            else
+            {
+                decimal noStolenBases = 0;
+                return noStolenBases;
+            }
+            
+        }
+
+        public decimal RunsCreatedCalcuator(int hits, int BB, int totalBases, int atBats)
+        {
+            decimal runCreated = (hits + BB) * totalBases / atBats + BB;
+            decimal rounded = (decimal)(Math.Round((decimal)runCreated, 3));
             return rounded;
         }
 
-        public float RunsCreatedCalcuator(int hits, int BB, int totalBases, int atBats)
+        public decimal StrikeOutPercentage(int officialAtBats, int strikeOuts)
         {
-            float runCreated = (hits + BB) * totalBases / atBats + BB;
-            float rounded = (float)(Math.Round((double)runCreated, 3));
-            return rounded;
-        }
-
-        public float StrikeOutPercentage(int officialAtBats, int strikeOuts)
-        {
-            float percentage = officialAtBats / strikeOuts;
-            float rounded = (float)(Math.Round((double)percentage, 3));
+            decimal percentage = officialAtBats / strikeOuts;
+            decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
             return rounded;
         }
 
