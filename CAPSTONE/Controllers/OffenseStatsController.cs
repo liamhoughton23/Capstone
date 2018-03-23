@@ -38,10 +38,25 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: OffenseStats/Create
-        public ActionResult Create(int playerID)
+        public ActionResult Create(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored, OffenseStats offenseStats)
         {
+            OffenseHelpers helpers = new OffenseHelpers();
             //ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName");
-            
+            offenseStats.PlayerID = PlayerID;
+            offenseStats.TotalPlateAppearances = helpers.Appearances(PlateAppearances);
+            offenseStats.OfficialAtBats = helpers.OfficialAtBatsCalculator(PlateAppearances, Walks, HBP, Scrifices);
+            offenseStats.TotalHits = helpers.TotalHitsCalulator(Singles, Doubles, Triples, HRs);
+            offenseStats.TotalBases = helpers.TotalBasesCalc(Singles, Doubles, Triples, HRs);
+            db.SaveChanges();
+            offenseStats.BA = helpers.BattingAverageCalculator(offenseStats.TotalHits, offenseStats.OfficialAtBats);
+            offenseStats.SLG = helpers.SluggingPercengateCalculator(TotalBases, offenseStats.OfficialAtBats);
+            offenseStats.OBP = helpers.OnBasePercentageCalculator(offenseStats.TotalHits, Walks, HBP, OnByInterference, DroppedThirdStrike, OnByFeildersChoice, offenseStats.OfficialAtBats, Scrifices);
+            offenseStats.BOBP = helpers.BaseOnBallsPercentage(Walks, offenseStats.TotalPlateAppearances);
+            offenseStats.SBP = helpers.StolenBasePercentage(StolenBases, StolenBases);
+            offenseStats.SOR = helpers.StrikeOutPercentage(offenseStats.OfficialAtBats, SO);
+            offenseStats.RunsCreated = helpers.RunsCreatedCalcuator(offenseStats.TotalHits, Walks,TotalBases, offenseStats.OfficialAtBats);
+            db.Offense.Add(offenseStats);
+            db.SaveChanges();
             return View();
         }
 
@@ -50,11 +65,16 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Key,Player,TotalPlateAppearances,OfficialAtBats,TotalHits,BA,SLG,OBP,BOBP,SBP,SOR,RunsCreated")] OffenseStats offenseStats, SubmitOffense subOffense)
+        public ActionResult Create([Bind(Include = "Key,Player,TotalPlateAppearances,OfficialAtBats,TotalHits,TotalBases,BA,SLG,OBP,BOBP,SBP,SOR,RunsCreated")] OffenseStats offenseStats)
         {
+            
+
             if (ModelState.IsValid)
             {
                 db.Offense.Add(offenseStats);
+
+                db.SaveChanges();
+
 
                 return RedirectToAction("Index");
             }
@@ -131,6 +151,19 @@ namespace CAPSTONE.Controllers
             }
             base.Dispose(disposing);
         }
+        //offenseStats.Player = subOffense.Player;
+        //    offenseStats.TotalPlateAppearances = helpers.Appearances(subOffense.PlateAppearances);
+        //    offenseStats.OfficialAtBats = helpers.OfficialAtBatsCalculator(subOffense.PlateAppearances, subOffense.Walks, subOffense.HBP, subOffense.Scrifices);
+        //    offenseStats.TotalHits = helpers.TotalHitsCalulator(subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs);
+        //    offenseStats.TotalBases = helpers.TotalBasesCalc(subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs);
+        //    db.SaveChanges();
+        //    offenseStats.BA = helpers.BattingAverageCalculator(offenseStats.TotalHits, offenseStats.OfficialAtBats);
+        //    offenseStats.SLG = helpers.SluggingPercengateCalculator(subOffense.TotalBases, offenseStats.OfficialAtBats);
+        //    offenseStats.OBP = helpers.OnBasePercentageCalculator(offenseStats.TotalHits, subOffense.Walks, subOffense.HBP, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.OnByFeildersChoice, offenseStats.OfficialAtBats, subOffense.Scrifices);
+        //    offenseStats.BOBP = helpers.BaseOnBallsPercentage(subOffense.Walks, offenseStats.TotalPlateAppearances);
+        //    offenseStats.SBP = helpers.StolenBasePercentage(subOffense.StolenBases, subOffense.StolenBases);
+        //    offenseStats.SOR = helpers.StrikeOutPercentage(offenseStats.OfficialAtBats, subOffense.SO);
+        //    offenseStats.RunsCreated = helpers.RunsCreatedCalcuator(offenseStats.TotalHits, subOffense.Walks, subOffense.TotalBases, offenseStats.OfficialAtBats);
 
     }
 }

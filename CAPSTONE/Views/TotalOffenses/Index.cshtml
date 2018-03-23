@@ -1,0 +1,141 @@
+﻿@model IEnumerable<CAPSTONE.Models.GameOffense>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlateAppearances)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Singles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doubles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Triples)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HRs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalBases)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Walks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HBP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Scrifices)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnByFeildersChoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnByInterference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DroppedThirdStrike)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StolenBases)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StolenBaseAttempts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherBattingOuts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RBIs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunsScored)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlateAppearances)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Singles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doubles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Triples)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HRs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalBases)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Walks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HBP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Scrifices)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OnByFeildersChoice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OnByInterference)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DroppedThirdStrike)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StolenBases)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StolenBaseAttempts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherBattingOuts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RBIs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunsScored)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Game }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Game }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Game })
+        </td>
+    </tr>
+}
+
+</table>

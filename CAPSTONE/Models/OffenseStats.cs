@@ -22,6 +22,8 @@ namespace CAPSTONE.Models
 
         public int TotalHits { get; set; }
 
+        public int TotalBases { get; set; }
+
         public decimal BA { get; set; }
 
         public decimal SLG { get; set; }

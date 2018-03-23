@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\DefenseStatsController.cs" />
+    <Compile Include="Controllers\TotalOffensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineUpsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -212,14 +213,24 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HelperClasses\DefenseHelpers.cs" />
+    <Compile Include="HelperClasses\MorphingTables.cs" />
     <Compile Include="HelperClasses\OffenseHelpers.cs" />
     <Compile Include="Migrations\201803230117483_deleted everything.cs" />
     <Compile Include="Migrations\201803230117483_deleted everything.Designer.cs">
       <DependentUpon>201803230117483_deleted everything.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803231832204_added stuff.cs" />
+    <Compile Include="Migrations\201803231832204_added stuff.Designer.cs">
+      <DependentUpon>201803231832204_added stuff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803232056150_added game table.cs" />
+    <Compile Include="Migrations\201803232056150_added game table.Designer.cs">
+      <DependentUpon>201803232056150_added game table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
+    <Compile Include="Models\TotalOffense.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LineUp.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -346,6 +357,11 @@
     <Content Include="Views\SubmitOffenses\Details.cshtml" />
     <Content Include="Views\SubmitOffenses\Edit.cshtml" />
     <Content Include="Views\SubmitOffenses\Index.cshtml" />
+    <Content Include="Views\TotalOffenses\Create.cshtml" />
+    <Content Include="Views\TotalOffenses\Delete.cshtml" />
+    <Content Include="Views\TotalOffenses\Details.cshtml" />
+    <Content Include="Views\TotalOffenses\Edit.cshtml" />
+    <Content Include="Views\TotalOffenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -361,6 +377,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803230117483_deleted everything.resx">
       <DependentUpon>201803230117483_deleted everything.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803231832204_added stuff.resx">
+      <DependentUpon>201803231832204_added stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803232056150_added game table.resx">
+      <DependentUpon>201803232056150_added game table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

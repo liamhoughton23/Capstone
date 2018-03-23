@@ -27,34 +27,34 @@ namespace CAPSTONE.HelperClasses
 
         public decimal BattingAverageCalculator(int totalHits, int atBats)
         {
-            decimal battingAverage = (decimal)totalHits / (decimal)atBats;
+            decimal battingAverage = (decimal)totalHits / atBats;
             return battingAverage; 
         }
 
         public decimal SluggingPercengateCalculator(int totalBases, int officialAtBats)
         {
-            decimal sluggingPercentage = (decimal)totalBases / (decimal)officialAtBats;
+            decimal sluggingPercentage = (decimal)totalBases / officialAtBats;
             return sluggingPercentage;
         }
 
         public decimal OnBasePercentageCalculator(int hits, int walks, int HBP, int onBaseInter, int onBaseDroppedThirdSt, int onBaseFC, int officialAtBats, int sacrifices)
         {
-            decimal onBasePercentage = (decimal)hits + (decimal)walks + (decimal)HBP + (decimal)onBaseInter + (decimal)onBaseDroppedThirdSt + (decimal)onBaseInter + (decimal)onBaseFC / (decimal)officialAtBats + (decimal)hits + (decimal)walks + (decimal)HBP + (decimal)onBaseInter + (decimal)onBaseDroppedThirdSt + (decimal)onBaseFC + (decimal)sacrifices;
-            decimal rounded = (decimal)(Math.Round((decimal)onBasePercentage, 3));
-            return rounded;
+            decimal onBasePercentage = (hits + (decimal)walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseInter + onBaseFC) / (officialAtBats + hits + walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseFC + sacrifices);
+            //decimal rounded = (decimal)(Math.Round((decimal)onBasePercentage, 3));
+            return onBasePercentage;
         }
 
         public int TotalBasesCalc(int singles, int doubles, int triples, int homeRuns)       
         {
-            int totalBases = 1 * singles + 2 * doubles + 3 * triples + 4 * homeRuns;
+            int totalBases = (1 * singles) + (2 * doubles) + (3 * triples) + (4 * homeRuns);
             return totalBases;
         }
 
         public decimal BaseOnBallsPercentage(int walks, int totalPlateAppearances)
         {
             decimal percentage = walks / totalPlateAppearances;
-            decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
-            return rounded;
+            //decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
+            return percentage;
         }
 
         public decimal StolenBasePercentage(int stolenBases, int stolenBaseAttempts)
@@ -62,8 +62,8 @@ namespace CAPSTONE.HelperClasses
             if (stolenBaseAttempts != 0)
             {
                 decimal percentage = stolenBases / stolenBaseAttempts;
-                decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
-                return rounded;
+                //decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
+                return percentage;
             }
             else
             {
@@ -76,15 +76,15 @@ namespace CAPSTONE.HelperClasses
         public decimal RunsCreatedCalcuator(int hits, int BB, int totalBases, int atBats)
         {
             decimal runCreated = (hits + BB) * totalBases / atBats + BB;
-            decimal rounded = (decimal)(Math.Round((decimal)runCreated, 3));
-            return rounded;
+            //decimal rounded = (decimal)(Math.Round((decimal)runCreated, 3));
+            return runCreated;
         }
 
         public decimal StrikeOutPercentage(int officialAtBats, int strikeOuts)
         {
-            decimal percentage = officialAtBats / strikeOuts;
-            decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
-            return rounded;
+            decimal percentage = strikeOuts / officialAtBats;
+            //decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
+            return percentage;
         }
 
         
