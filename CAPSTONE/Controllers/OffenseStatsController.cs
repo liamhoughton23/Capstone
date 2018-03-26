@@ -14,6 +14,7 @@ namespace CAPSTONE.Controllers
     public class OffenseStatsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        public OffenseStats offenseStats = new OffenseStats();
 
         // GET: OffenseStats
         public ActionResult Index()
@@ -38,7 +39,7 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: OffenseStats/Create
-        public ActionResult Create(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored, OffenseStats offenseStats)
+        public ActionResult Create(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
         {
             OffenseHelpers helpers = new OffenseHelpers();
             //ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName");
@@ -57,6 +58,7 @@ namespace CAPSTONE.Controllers
             offenseStats.RunsCreated = helpers.RunsCreatedCalcuator(offenseStats.TotalHits, Walks,TotalBases, offenseStats.OfficialAtBats);
             db.Offense.Add(offenseStats);
             db.SaveChanges();
+
             return View();
         }
 

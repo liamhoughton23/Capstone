@@ -63,6 +63,6 @@ namespace CAPSTONE.Models
 
         public DbSet <SchedPractice> SchedPractices { get; set; }
 
-        public System.Data.Entity.DbSet<CAPSTONE.Models.TotalOffense> GameOffenses { get; set; }
+        public DbSet<TotalOffense> GameOffenses { get; set; }
     }
 }

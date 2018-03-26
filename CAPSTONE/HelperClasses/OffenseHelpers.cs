@@ -61,7 +61,7 @@ namespace CAPSTONE.HelperClasses
         {
             if (stolenBaseAttempts != 0)
             {
-                decimal percentage = stolenBases / stolenBaseAttempts;
+                decimal percentage = stolenBaseAttempts / stolenBases;
                 //decimal rounded = (decimal)(Math.Round((decimal)percentage, 3));
                 return percentage;
             }

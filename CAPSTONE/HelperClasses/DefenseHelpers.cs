@@ -7,6 +7,6 @@ namespace CAPSTONE.HelperClasses
 {
     public class DefenseHelpers
     {
-
+        public decimal 
     }
 }
