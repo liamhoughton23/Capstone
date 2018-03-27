@@ -3,7 +3,7 @@ namespace CAPSTONE.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class deletedeverything : DbMigration
+    public partial class addedforignkey : DbMigration
     {
         public override void Up()
         {
@@ -24,7 +24,7 @@ namespace CAPSTONE.Migrations
                     {
                         Key = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
-                        Positions = c.Int(nullable: false),
+                        Position = c.Int(nullable: false),
                         Games = c.Int(nullable: false),
                         IP = c.Int(nullable: false),
                         TC = c.Int(nullable: false),
@@ -52,6 +52,35 @@ namespace CAPSTONE.Migrations
                 .Index(t => t.CoachID);
             
             CreateTable(
+                "dbo.TotalOffenses",
+                c => new
+                    {
+                        Game = c.Int(nullable: false, identity: true),
+                        PlayerID = c.Int(nullable: false),
+                        PlateAppearances = c.Int(nullable: false),
+                        Singles = c.Int(nullable: false),
+                        Doubles = c.Int(nullable: false),
+                        Triples = c.Int(nullable: false),
+                        HRs = c.Int(nullable: false),
+                        TotalBases = c.Int(nullable: false),
+                        Walks = c.Int(nullable: false),
+                        HBP = c.Int(nullable: false),
+                        Scrifices = c.Int(nullable: false),
+                        OnByFeildersChoice = c.Int(nullable: false),
+                        OnByInterference = c.Int(nullable: false),
+                        DroppedThirdStrike = c.Int(nullable: false),
+                        StolenBases = c.Int(nullable: false),
+                        StolenBaseAttempts = c.Int(nullable: false),
+                        SO = c.Int(nullable: false),
+                        OtherBattingOuts = c.Int(nullable: false),
+                        RBIs = c.Int(nullable: false),
+                        RunsScored = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Game)
+                .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
+                .Index(t => t.PlayerID);
+            
+            CreateTable(
                 "dbo.LineUps",
                 c => new
                     {
@@ -72,6 +101,7 @@ namespace CAPSTONE.Migrations
                         TotalPlateAppearances = c.Int(nullable: false),
                         OfficialAtBats = c.Int(nullable: false),
                         TotalHits = c.Int(nullable: false),
+                        TotalBases = c.Int(nullable: false),
                         BA = c.Decimal(nullable: false, precision: 18, scale: 2),
                         SLG = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OBP = c.Decimal(nullable: false, precision: 18, scale: 2),
@@ -294,6 +324,7 @@ namespace CAPSTONE.Migrations
             DropForeignKey("dbo.PitchStats", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.OffenseStats", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.LineUps", "PlayerID", "dbo.Players");
+            DropForeignKey("dbo.TotalOffenses", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.DefenseStats", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.Players", "CoachID", "dbo.Coaches");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -308,6 +339,7 @@ namespace CAPSTONE.Migrations
             DropIndex("dbo.PitchStats", new[] { "PlayerID" });
             DropIndex("dbo.OffenseStats", new[] { "PlayerID" });
             DropIndex("dbo.LineUps", new[] { "PlayerID" });
+            DropIndex("dbo.TotalOffenses", new[] { "PlayerID" });
             DropIndex("dbo.Players", new[] { "CoachID" });
             DropIndex("dbo.DefenseStats", new[] { "PlayerID" });
             DropTable("dbo.AspNetUserLogins");
@@ -325,6 +357,7 @@ namespace CAPSTONE.Migrations
             DropTable("dbo.PitchStats");
             DropTable("dbo.OffenseStats");
             DropTable("dbo.LineUps");
+            DropTable("dbo.TotalOffenses");
             DropTable("dbo.Players");
             DropTable("dbo.DefenseStats");
             DropTable("dbo.Coaches");

@@ -1,0 +1,74 @@
+﻿@model CAPSTONE.Models.TotalDefense
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TotalDefense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Positions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Positions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Attempts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Attempts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Errors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Errors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InningsPlayed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InningsPlayed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PutOuts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PutOuts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Assists)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Assists)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GameID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

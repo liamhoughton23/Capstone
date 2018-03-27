@@ -3,7 +3,7 @@ namespace CAPSTONE.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addedgametable : DbMigration
+    public partial class addedtotaldefense : DbMigration
     {
         public override void Up()
         {

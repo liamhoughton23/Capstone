@@ -7,13 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
+using CAPSTONE.HelperClasses;
 
 namespace CAPSTONE.Controllers
 {
     public class DefenseStatsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        public DefenseStats defenseStats = new DefenseStats();
         // GET: DefenseStats
         public ActionResult Index()
         {
@@ -37,10 +38,19 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: DefenseStats/Create
-        public ActionResult Create()
+        public void Create(int playerID, int position, int errors, int inningsPlayed, int putOuts, int assists)
         {
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName");
-            return View();
+            DefenseHelpers helpers = new DefenseHelpers();
+            MorphingTables morph = new MorphingTables();
+            defenseStats.PlayerID = playerID;
+            defenseStats.Position = position;
+            defenseStats.Errors = errors;
+            defenseStats.IP = inningsPlayed;
+            defenseStats.PO = putOuts;
+            defenseStats.TC = helpers.TotalChances(assists, putOuts, errors);
+            defenseStats.FPCT = helpers.FPCT(putOuts, assists, errors);
+            db.Defense.Add(defenseStats);
+            db.SaveChanges();
         }
 
         // POST: DefenseStats/Create
@@ -48,7 +58,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Key,PlayerID,Positions,Games,IP,TC,PO,Assists,Errors,DoublePlays,FPCT")] DefenseStats defenseStats)
+        public ActionResult Create([Bind(Include = "Key,PlayerID,Positions,IP,TC,PO,Assists,Errors,FPCT")] DefenseStats defenseStats)
         {
             if (ModelState.IsValid)
             {
@@ -62,19 +72,31 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: DefenseStats/Edit/5
-        public ActionResult Edit(int? id)
+        public void Edit(int playerID, int position, int errors, int inningsPlayed, int putOuts, int assists)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DefenseStats defenseStats = db.Defense.Find(id);
-            if (defenseStats == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", defenseStats.PlayerID);
-            return View(defenseStats);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //DefenseStats defenseStats = db.Defense.Find(id);
+            //if (defenseStats == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", defenseStats.PlayerID);
+            DefenseHelpers helpers = new DefenseHelpers();
+            var result = from row in db.Defense where row.PlayerID == playerID select row;
+            var resultToUser = result.FirstOrDefault();
+            resultToUser.PlayerID = playerID;
+            resultToUser.Position = position;
+            resultToUser.Errors = errors;
+            resultToUser.IP = inningsPlayed;
+            resultToUser.PO = putOuts;
+            resultToUser.TC = helpers.TotalChances(assists, putOuts, errors);
+            resultToUser.FPCT = helpers.FPCT(putOuts, assists, errors);
+            db.Entry(resultToUser).State = EntityState.Modified;
+            db.SaveChanges();
+
         }
 
         // POST: DefenseStats/Edit/5
@@ -82,7 +104,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Key,PlayerID,Positions,Games,IP,TC,PO,Assists,Errors,DoublePlays,FPCT")] DefenseStats defenseStats)
+        public ActionResult Edit([Bind(Include = "Key,PlayerID,Positions,Games,IP,TC,PO,Assists,Errors,FPCT")] DefenseStats defenseStats)
         {
             if (ModelState.IsValid)
             {

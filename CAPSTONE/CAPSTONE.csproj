@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\DefenseStatsController.cs" />
+    <Compile Include="Controllers\TotalDefensesController.cs" />
     <Compile Include="Controllers\TotalOffensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineUpsController.cs" />
@@ -215,25 +216,22 @@
     <Compile Include="HelperClasses\DefenseHelpers.cs" />
     <Compile Include="HelperClasses\MorphingTables.cs" />
     <Compile Include="HelperClasses\OffenseHelpers.cs" />
-    <Compile Include="Migrations\201803230117483_deleted everything.cs" />
-    <Compile Include="Migrations\201803230117483_deleted everything.Designer.cs">
-      <DependentUpon>201803230117483_deleted everything.cs</DependentUpon>
+    <Compile Include="Migrations\201803271943596_added forign key.cs" />
+    <Compile Include="Migrations\201803271943596_added forign key.Designer.cs">
+      <DependentUpon>201803271943596_added forign key.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803232056150_added game table.cs" />
-    <Compile Include="Migrations\201803232056150_added game table.Designer.cs">
-      <DependentUpon>201803232056150_added game table.cs</DependentUpon>
+    <Compile Include="Migrations\201803272002072_added total defense.cs" />
+    <Compile Include="Migrations\201803272002072_added total defense.Designer.cs">
+      <DependentUpon>201803272002072_added total defense.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803262018009_amking sure it works.cs" />
-    <Compile Include="Migrations\201803262018009_amking sure it works.Designer.cs">
-      <DependentUpon>201803262018009_amking sure it works.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803262035584_added migration.cs" />
-    <Compile Include="Migrations\201803262035584_added migration.Designer.cs">
-      <DependentUpon>201803262035584_added migration.cs</DependentUpon>
+    <Compile Include="Migrations\201803272141274_changes stuff.cs" />
+    <Compile Include="Migrations\201803272141274_changes stuff.Designer.cs">
+      <DependentUpon>201803272141274_changes stuff.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
+    <Compile Include="Models\TotalDefense.cs" />
     <Compile Include="Models\TotalOffense.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LineUp.cs" />
@@ -366,6 +364,11 @@
     <Content Include="Views\TotalOffenses\Details.cshtml" />
     <Content Include="Views\TotalOffenses\Edit.cshtml" />
     <Content Include="Views\TotalOffenses\Index.cshtml" />
+    <Content Include="Views\TotalDefenses\Create.cshtml" />
+    <Content Include="Views\TotalDefenses\Delete.cshtml" />
+    <Content Include="Views\TotalDefenses\Details.cshtml" />
+    <Content Include="Views\TotalDefenses\Edit.cshtml" />
+    <Content Include="Views\TotalDefenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,17 +382,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803230117483_deleted everything.resx">
-      <DependentUpon>201803230117483_deleted everything.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803271943596_added forign key.resx">
+      <DependentUpon>201803271943596_added forign key.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803232056150_added game table.resx">
-      <DependentUpon>201803232056150_added game table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803272002072_added total defense.resx">
+      <DependentUpon>201803272002072_added total defense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803262018009_amking sure it works.resx">
-      <DependentUpon>201803262018009_amking sure it works.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803262035584_added migration.resx">
-      <DependentUpon>201803262035584_added migration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803272141274_changes stuff.resx">
+      <DependentUpon>201803272141274_changes stuff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace CAPSTONE.Models
 {
-    public class SubmitDefense
+    public class TotalDefense
     {
         [Key]
         public int GameID { get; set; }
@@ -18,6 +18,8 @@ namespace CAPSTONE.Models
 
         public int Positions { get; set; }
 
+        public int Attempts { get; set; }
+
         public int Errors { get; set; }
 
         public int InningsPlayed { get; set; }
@@ -25,6 +27,5 @@ namespace CAPSTONE.Models
         public int PutOuts { get; set; }
 
         public int Assists { get; set; }
-
     }
 }

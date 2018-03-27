@@ -62,15 +62,15 @@ namespace CAPSTONE.Controllers
                     if(item.PlayerID == subOffense.PlayerID)
                     {
                         total.Edit(subOffense.PlayerID, subOffense.PlateAppearances, subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs, subOffense.Walks, subOffense.HBP, subOffense.Scrifices, subOffense.OnByFeildersChoice, subOffense.TotalBases, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.StolenBases, subOffense.StolenBaseAttempts, subOffense.SO, subOffense.OtherBattingOuts, subOffense.RBIs, subOffense.RunsScored);
-
-                        return RedirectToAction("Index", "offenseStats");
+                        return RedirectToAction("Create", "SubmitDefenses");
                     }                  
                 }
                 total.Create(subOffense.PlayerID, subOffense.PlateAppearances, subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs, subOffense.Walks, subOffense.HBP, subOffense.Scrifices, subOffense.OnByFeildersChoice, subOffense.TotalBases, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.StolenBases, subOffense.StolenBaseAttempts, subOffense.SO, subOffense.OtherBattingOuts, subOffense.RBIs, subOffense.RunsScored, totalOff);
                 off.Create(totalOff.PlayerID, totalOff.PlateAppearances, totalOff.Singles, totalOff.Doubles, totalOff.Triples, totalOff.HRs, totalOff.Walks, totalOff.HBP, totalOff.Scrifices, totalOff.OnByFeildersChoice, totalOff.TotalBases, totalOff.OnByInterference, totalOff.DroppedThirdStrike, totalOff.StolenBases, totalOff.StolenBaseAttempts, totalOff.SO, totalOff.OtherBattingOuts, totalOff.RBIs, totalOff.RunsScored);
                 db.SubmitOffenses.Add(subOffense);
                 db.SaveChanges();
-                return RedirectToAction("Index", "OffenseStats");
+                
+                return RedirectToAction("Create", "SubmitDefenses");
             }
 
             ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", subOffense.PlayerID);

@@ -14,6 +14,7 @@ namespace CAPSTONE.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         // GET: SubmitDefenses
         public ActionResult Index()
         {
@@ -48,17 +49,28 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GameID,PlayerID,Attempts,Errors,InningsPlayed,PutOuts,Assists")] SubmitDefense submitDefense)
+        public ActionResult Create([Bind(Include = "GameID,PlayerID,Positions,Errors,InningsPlayed,PutOuts,Assists")] SubmitDefense submitDefense, TotalDefense totalDefense)
         {
+            TotalDefensesController total = new TotalDefensesController();
+
             if (ModelState.IsValid)
             {
                 db.SubmitDefenses.Add(submitDefense);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                foreach (var item in db.TotalDefenses)
+                {
+                    if (item.Positions == submitDefense.Positions && item.PlayerID == submitDefense.PlayerID)
+                    {
+                        total.Edit(submitDefense.PlayerID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists);
+                        return RedirectToAction("Index", "DefenseStats");
+                    }
+                }
+            total.Create(submitDefense.PlayerID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists, totalDefense);
+            return RedirectToAction("Index", "DefenseStats");
             }
-
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", submitDefense.PlayerID);
-            return View(submitDefense);
+            return RedirectToAction("Index", "DefenseStats");
+            //ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", submitDefense.PlayerID);
+            //return View(submitDefense);
         }
 
         // GET: SubmitDefenses/Edit/5

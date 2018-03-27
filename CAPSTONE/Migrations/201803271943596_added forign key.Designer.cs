@@ -7,13 +7,13 @@ namespace CAPSTONE.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addedgametable : IMigrationMetadata
+    public sealed partial class addedforignkey : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedgametable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedforignkey));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803232056150_added game table"; }
+            get { return "201803271943596_added forign key"; }
         }
         
         string IMigrationMetadata.Source

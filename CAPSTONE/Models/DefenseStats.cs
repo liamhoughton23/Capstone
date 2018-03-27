@@ -16,9 +16,7 @@ namespace CAPSTONE.Models
         [ForeignKey("PlayerID")]
         public virtual Player Player { get; set; }
 
-        public int Positions { get; set; }
-
-        public int Games { get; set; }
+        public int Position { get; set; }
 
         public int IP { get; set; }
 
@@ -29,8 +27,6 @@ namespace CAPSTONE.Models
         public int Assists { get; set; }
 
         public int Errors { get; set; }
-
-        public int DoublePlays { get; set; }
 
         public decimal FPCT { get; set; }
 
