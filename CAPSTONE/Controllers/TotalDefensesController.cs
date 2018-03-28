@@ -85,7 +85,7 @@ namespace CAPSTONE.Controllers
             db.Entry(resultToUser).State = EntityState.Modified;
             db.SaveChanges();
             DefenseStatsController newStats = new DefenseStatsController();
-            newStats.Edit(playerID, position, errors, inningsPlayed, putOuts, assists);
+            newStats.Edit(resultToUser.PlayerID, resultToUser.Positions, resultToUser.Errors, resultToUser.InningsPlayed, resultToUser.PutOuts, resultToUser.Assists);
         }
 
         // POST: TotalDefenses/Edit/5

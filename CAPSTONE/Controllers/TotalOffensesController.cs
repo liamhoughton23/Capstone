@@ -96,6 +96,7 @@ namespace CAPSTONE.Controllers
             MorphingTables morph = new MorphingTables();
             var result = from row in db.GameOffenses where row.PlayerID == PlayerID select row;
             var resultToUser = result.FirstOrDefault();
+            resultToUser.PlayerID = PlayerID;
             resultToUser.PlateAppearances = morph.AddingStats(PlateAppearances, resultToUser.PlateAppearances);
             resultToUser.Singles = morph.AddingStats(Singles, resultToUser.Singles);
             resultToUser.Doubles = morph.AddingStats(Doubles, resultToUser.Doubles);
@@ -117,7 +118,7 @@ namespace CAPSTONE.Controllers
             db.Entry(resultToUser).State = EntityState.Modified;
             db.SaveChanges();
             OffenseStatsController newStats = new OffenseStatsController();
-            newStats.Create(PlayerID, resultToUser.PlateAppearances, resultToUser.Singles, resultToUser.Doubles, resultToUser.Triples, resultToUser.HRs, resultToUser.Walks, resultToUser.HBP, resultToUser.Scrifices, resultToUser.OnByFeildersChoice, resultToUser.TotalBases, resultToUser.OnByInterference, resultToUser.DroppedThirdStrike, resultToUser.StolenBases, resultToUser.StolenBaseAttempts, resultToUser.SO, resultToUser.OtherBattingOuts, resultToUser.RBIs, resultToUser.RunsScored);
+            newStats.Edit(resultToUser.PlayerID, resultToUser.PlateAppearances, resultToUser.Singles, resultToUser.Doubles, resultToUser.Triples, resultToUser.HRs, resultToUser.Walks, resultToUser.HBP, resultToUser.Scrifices, resultToUser.OnByFeildersChoice, resultToUser.TotalBases, resultToUser.OnByInterference, resultToUser.DroppedThirdStrike, resultToUser.StolenBases, resultToUser.StolenBaseAttempts, resultToUser.SO, resultToUser.OtherBattingOuts, resultToUser.RBIs, resultToUser.RunsScored);
             return View();
         }
 

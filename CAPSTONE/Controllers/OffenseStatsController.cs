@@ -87,18 +87,37 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: OffenseStats/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OffenseStats offenseStats = db.Offense.Find(id);
-            if (offenseStats == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName", offenseStats.Player);
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //OffenseStats offenseStats = db.Offense.Find(id);
+            //if (offenseStats == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName", offenseStats.Player);
+            OffenseHelpers helpers = new OffenseHelpers();
+            var result = from row in db.Offense where row.PlayerID == PlayerID select row;
+            var resultToUser = result.FirstOrDefault();
+            resultToUser.PlayerID = PlayerID;
+            resultToUser.TotalPlateAppearances = helpers.Appearances(PlateAppearances);
+            resultToUser.OfficialAtBats = helpers.OfficialAtBatsCalculator(PlateAppearances, Walks, HBP, Scrifices);
+            resultToUser.TotalHits = helpers.TotalHitsCalulator(Singles, Doubles, Triples, HRs);
+            resultToUser.TotalBases = helpers.TotalBasesCalc(Singles, Doubles, Triples, HRs);
+            db.SaveChanges();
+            resultToUser.BA = helpers.BattingAverageCalculator(resultToUser.TotalHits, resultToUser.OfficialAtBats);
+            resultToUser.SLG = helpers.SluggingPercengateCalculator(TotalBases, resultToUser.OfficialAtBats);
+            resultToUser.OBP = helpers.OnBasePercentageCalculator(resultToUser.TotalHits, Walks, HBP, OnByInterference, DroppedThirdStrike, OnByFeildersChoice, resultToUser.OfficialAtBats, Scrifices);
+            resultToUser.BOBP = helpers.BaseOnBallsPercentage(Walks, resultToUser.TotalPlateAppearances);
+            resultToUser.SBP = helpers.StolenBasePercentage(StolenBases, StolenBases);
+            resultToUser.SOR = helpers.StrikeOutPercentage(resultToUser.OfficialAtBats, SO);
+            resultToUser.RunsCreated = helpers.RunsCreatedCalcuator(resultToUser.TotalHits, Walks, TotalBases, resultToUser.OfficialAtBats);
+            db.Entry(resultToUser).State = EntityState.Modified;
+            db.SaveChanges();
             return View(offenseStats);
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,17 +28,9 @@ namespace CAPSTONE.Models
 
         public decimal PickOffPercentage { get; set; }
 
-        public decimal HitBatterRatio { get; set; }
-
         public decimal WalksPerAtBat { get; set; }
 
         public decimal WalksPerInning { get; set; }
-
-        public decimal HRratio { get; set; }
-
-        public decimal StrikeOutRatio { get; set; }
-
-        public decimal StrikeOutPerWalkRatio { get; set; }
 
         //public int Wins { get; set; }
 

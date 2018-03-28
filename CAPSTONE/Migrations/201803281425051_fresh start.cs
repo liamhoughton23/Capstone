@@ -3,7 +3,7 @@ namespace CAPSTONE.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addedforignkey : DbMigration
+    public partial class freshstart : DbMigration
     {
         public override void Up()
         {
@@ -25,13 +25,11 @@ namespace CAPSTONE.Migrations
                         Key = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
                         Position = c.Int(nullable: false),
-                        Games = c.Int(nullable: false),
                         IP = c.Int(nullable: false),
                         TC = c.Int(nullable: false),
                         PO = c.Int(nullable: false),
                         Assists = c.Int(nullable: false),
                         Errors = c.Int(nullable: false),
-                        DoublePlays = c.Int(nullable: false),
                         FPCT = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.Key)
@@ -126,12 +124,8 @@ namespace CAPSTONE.Migrations
                         StrikeOuts = c.Decimal(nullable: false, precision: 18, scale: 2),
                         StrikeOutPercentage = c.Decimal(nullable: false, precision: 18, scale: 2),
                         PickOffPercentage = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        HitBatterRatio = c.Decimal(nullable: false, precision: 18, scale: 2),
                         WalksPerAtBat = c.Decimal(nullable: false, precision: 18, scale: 2),
                         WalksPerInning = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        HRratio = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        StrikeOutRatio = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        StrikeOutPerWalkRatio = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.Key)
                 .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
@@ -205,7 +199,6 @@ namespace CAPSTONE.Migrations
                         GameID = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
                         Positions = c.Int(nullable: false),
-                        Attempts = c.Int(nullable: false),
                         Errors = c.Int(nullable: false),
                         InningsPlayed = c.Int(nullable: false),
                         PutOuts = c.Int(nullable: false),
@@ -246,6 +239,44 @@ namespace CAPSTONE.Migrations
             
             CreateTable(
                 "dbo.SubmitPitchings",
+                c => new
+                    {
+                        GameID = c.Int(nullable: false, identity: true),
+                        PlayerID = c.Int(nullable: false),
+                        OpponentOfficialAtBats = c.Int(nullable: false),
+                        OpponentHits = c.Int(nullable: false),
+                        EarnedRunsScored = c.Int(nullable: false),
+                        InningsPitched = c.Int(nullable: false),
+                        StrikeOuts = c.Int(nullable: false),
+                        HomeRuns = c.Int(nullable: false),
+                        Walks = c.Int(nullable: false),
+                        BattersHBP = c.Int(nullable: false),
+                        PickOffAttempts = c.Int(nullable: false),
+                        PickOffs = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.GameID)
+                .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
+                .Index(t => t.PlayerID);
+            
+            CreateTable(
+                "dbo.TotalDefenses",
+                c => new
+                    {
+                        GameID = c.Int(nullable: false, identity: true),
+                        PlayerID = c.Int(nullable: false),
+                        Positions = c.Int(nullable: false),
+                        Attempts = c.Int(nullable: false),
+                        Errors = c.Int(nullable: false),
+                        InningsPlayed = c.Int(nullable: false),
+                        PutOuts = c.Int(nullable: false),
+                        Assists = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.GameID)
+                .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
+                .Index(t => t.PlayerID);
+            
+            CreateTable(
+                "dbo.TotalPitchings",
                 c => new
                     {
                         GameID = c.Int(nullable: false, identity: true),
@@ -317,6 +348,8 @@ namespace CAPSTONE.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.TotalPitchings", "PlayerID", "dbo.Players");
+            DropForeignKey("dbo.TotalDefenses", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.SubmitPitchings", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.SubmitOffenses", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.SubmitDefenses", "PlayerID", "dbo.Players");
@@ -330,6 +363,8 @@ namespace CAPSTONE.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.TotalPitchings", new[] { "PlayerID" });
+            DropIndex("dbo.TotalDefenses", new[] { "PlayerID" });
             DropIndex("dbo.SubmitPitchings", new[] { "PlayerID" });
             DropIndex("dbo.SubmitOffenses", new[] { "PlayerID" });
             DropIndex("dbo.SubmitDefenses", new[] { "PlayerID" });
@@ -345,6 +380,8 @@ namespace CAPSTONE.Migrations
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.TotalPitchings");
+            DropTable("dbo.TotalDefenses");
             DropTable("dbo.SubmitPitchings");
             DropTable("dbo.SubmitOffenses");
             DropTable("dbo.SubmitDefenses");

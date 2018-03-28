@@ -52,20 +52,37 @@ namespace CAPSTONE.Controllers
         public ActionResult Create([Bind(Include = "GameID,PlayerID,Positions,Errors,InningsPlayed,PutOuts,Assists")] SubmitDefense submitDefense, TotalDefense totalDefense)
         {
             TotalDefensesController total = new TotalDefensesController();
-
+            SubmitPitchingsController pitch = new SubmitPitchingsController();
+            //SubmitPitching pitching = new SubmitPitching();
+            //TotalPitching totalPitch = new TotalPitching();
             if (ModelState.IsValid)
             {
                 db.SubmitDefenses.Add(submitDefense);
                 db.SaveChanges();
                 foreach (var item in db.TotalDefenses)
                 {
-                    if (item.Positions == submitDefense.Positions && item.PlayerID == submitDefense.PlayerID)
+                    if (item.Positions == submitDefense.Positions && item.PlayerID == submitDefense.PlayerID && submitDefense.Positions != 1)
                     {
                         total.Edit(submitDefense.PlayerID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists);
+                        if (submitDefense.Positions == 1)
+                        {
+                            //pitch.Create(pitching, totalPitch);
+                            return RedirectToAction("Create", "SubmitPitchings");
+                        }
                         return RedirectToAction("Index", "DefenseStats");
                     }
+                    //else if (submitDefense.Positions == 1)
+                    //{
+                    //    //pitch.Create(pitching, totalPitch);
+                    //    return RedirectToAction("Create", "SubmitPitchings");
+                    //}
                 }
             total.Create(submitDefense.PlayerID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists, totalDefense);
+                if (submitDefense.Positions == 1)
+                {
+                    //pitch.Create(pitching, totalPitch);
+                    return RedirectToAction("Create", "SubmitPitchings");
+                }
             return RedirectToAction("Index", "DefenseStats");
             }
             return RedirectToAction("Index", "DefenseStats");

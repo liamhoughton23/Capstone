@@ -7,10 +7,11 @@ namespace CAPSTONE.HelperClasses
 {
     public class DefenseHelpers
     {
-       public decimal FPCT(int PO, int assists, int errors)
+       public decimal FPCT(decimal PO, decimal assists, decimal errors)
         {
-            decimal percentage = (PO + assists) / (PO + assists + errors);
-            return percentage;
+            decimal percentage = (decimal)(PO + assists) / (PO + assists + errors);
+            decimal rounded = Math.Round(percentage, 3);
+            return rounded;
         }
 
         public int TotalChances(int assists, int putOuts, int errors)

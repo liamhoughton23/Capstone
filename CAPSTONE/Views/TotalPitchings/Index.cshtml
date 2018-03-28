@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CAPSTONE.Models.TotalPitching>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpponentOfficialAtBats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpponentHits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EarnedRunsScored)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InningsPitched)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StrikeOuts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeRuns)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Walks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BattersHBP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickOffAttempts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickOffs)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpponentOfficialAtBats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpponentHits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EarnedRunsScored)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InningsPitched)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StrikeOuts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeRuns)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Walks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BattersHBP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickOffAttempts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickOffs)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GameID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GameID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GameID })
+        </td>
+    </tr>
+}
+
+</table>

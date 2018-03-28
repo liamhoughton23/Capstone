@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
+using CAPSTONE.HelperClasses;
 
 namespace CAPSTONE.Controllers
 {
@@ -39,7 +40,7 @@ namespace CAPSTONE.Controllers
         // GET: SubmitPitchings/Create
         public ActionResult Create()
         {
-            ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName");
+            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName");
             return View();
         }
 
@@ -48,17 +49,28 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GameID,Player,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] SubmitPitching submitPitching)
-        {
+        public ActionResult Create([Bind(Include = "GameID,PlayerID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] SubmitPitching submitPitching, TotalPitching stats)
+        {        
             if (ModelState.IsValid)
-            {
+           {
+                TotalPitchingsController total = new TotalPitchingsController();
+                MorphingTables morph = new MorphingTables();
+                PitchStatsController off = new PitchStatsController();
                 db.SubmitPitchings.Add(submitPitching);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                foreach (var item in db.TotalPitchings)
+                {
+                    if (item.PlayerID == submitPitching.PlayerID)
+                    {
+                        total.Edit(submitPitching.PlayerID, submitPitching.OpponentOfficialAtBats, submitPitching.OpponentHits, submitPitching.EarnedRunsScored, submitPitching.InningsPitched, submitPitching.StrikeOuts, submitPitching.HomeRuns, submitPitching.Walks, submitPitching.BattersHBP, submitPitching.PickOffAttempts, submitPitching.PickOffs);
+                        return RedirectToAction("Index", "PitchStats");
+                    }
+                }
 
-            ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName", submitPitching.Player);
-            return View(submitPitching);
+                total.Create(submitPitching.PlayerID, submitPitching.OpponentOfficialAtBats, submitPitching.OpponentHits, submitPitching.EarnedRunsScored, submitPitching.InningsPitched, submitPitching.StrikeOuts, submitPitching.HomeRuns, submitPitching.Walks, submitPitching.BattersHBP, submitPitching.PickOffAttempts, submitPitching.PickOffs, stats);
+                return RedirectToAction("Index", "PitchStats");
+           }
+           return RedirectToAction("Index", "PitchStats");
         }
 
         // GET: SubmitPitchings/Edit/5
@@ -127,6 +139,11 @@ namespace CAPSTONE.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public static implicit operator SubmitPitchingsController(SubmitPitching v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
