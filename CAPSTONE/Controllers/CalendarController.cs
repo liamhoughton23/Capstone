@@ -1,6 +1,7 @@
 ﻿using CAPSTONE.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,33 +27,31 @@ namespace CAPSTONE.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveEvent(Calendar evnt)
+        public JsonResult SaveEvent(Calendar e)
         {
             var status = false;
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (ApplicationDbContext dc = new ApplicationDbContext())
             {
-                if (evnt.EventID > 0)
+                if (e.EventID > 0)
                 {
-                    var v = db.Calendar.Where(a => a.EventID == evnt.EventID).FirstOrDefault();
+                    //Update the event
+                    var v = dc.Calendar.Where(a => a.EventID == e.EventID).FirstOrDefault();
                     if (v != null)
                     {
-                        v.Subject = evnt.Subject;
-                        v.Start = evnt.Start;
-                        v.End = evnt.End;
-                        v.Description = evnt.Description;
-                        v.IsFullDay = evnt.IsFullDay;
-                        v.Color = evnt.Color;
-
+                        v.Subject = e.Subject;
+                        v.Start = e.Start;
+                        v.End = e.End;
+                        v.Description = e.Description;
+                        v.IsFullDay = e.IsFullDay;
+                        v.Color = e.Color;
                     }
                 }
                 else
                 {
-                    db.Calendar.Add(evnt);
-                    db.SaveChanges();
+                    dc.Calendar.Add(e);
                 }
-                db.SaveChanges();
+                dc.SaveChanges();
                 status = true;
-            
             }
             return new JsonResult { Data = new { status = status } };
         }
