@@ -8,6 +8,8 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
+<div id="calendar"></div>
+
 <div class="row">
     <div class="col-md-3">
         <h2>Registering Players</h2>
@@ -22,7 +24,7 @@
     <div class="col-md-3">
         <h2></h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <input type="button" value="Schedule Events" onclick="location.href='@Url.Action("Create", "Event", new { id = Model.Id })'" class="btn btn-default" />
+        <input type="button" value="Calendar" onclick="location.href='@Url.Action("Index", "Calendar", new { id = Model.Id })'" class="btn btn-default" />
     </div>
     <div class="col-md-3">
         <h2></h2>

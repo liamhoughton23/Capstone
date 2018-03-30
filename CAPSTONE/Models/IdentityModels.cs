@@ -55,13 +55,7 @@ namespace CAPSTONE.Models
 
         public DbSet<SubmitOffense> SubmitOffenses { get; set; }
 
-        public DbSet<SchedFund> SchedFunds { get; set; }
-
-        public DbSet<SchedMeet> ShedMeets { get; set; }
-
-        public DbSet <SchedGame> SchedGames { get; set; }
-
-        public DbSet <SchedPractice> SchedPractices { get; set; }
+        public DbSet <Calendar> Calendar { get; set; }
 
         public DbSet<TotalOffense> GameOffenses { get; set; }
 
