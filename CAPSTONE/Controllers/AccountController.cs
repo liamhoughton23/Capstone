@@ -181,6 +181,11 @@ namespace CAPSTONE.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    if(model.RoleName == "Player")
+                    {
+                        return RedirectToAction("Create", "Players");
+                    }
+
 
                     return RedirectToAction("Create", "Coaches");
                 }

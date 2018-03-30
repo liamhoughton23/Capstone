@@ -201,6 +201,7 @@
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
     <Compile Include="Controllers\DefenseStatsController.cs" />
+    <Compile Include="Controllers\LocationGettersController.cs" />
     <Compile Include="Controllers\TotalDefensesController.cs" />
     <Compile Include="Controllers\TotalOffensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperClasses\AddyLatLong.cs" />
     <Compile Include="HelperClasses\DefenseHelpers.cs" />
     <Compile Include="HelperClasses\MorphingTables.cs" />
     <Compile Include="HelperClasses\OffenseHelpers.cs" />
@@ -225,9 +227,18 @@
     <Compile Include="Migrations\201803292231113_adding stuuf.Designer.cs">
       <DependentUpon>201803292231113_adding stuuf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803301946287_location added.cs" />
+    <Compile Include="Migrations\201803301946287_location added.Designer.cs">
+      <DependentUpon>201803301946287_location added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803302029226_stuff.cs" />
+    <Compile Include="Migrations\201803302029226_stuff.Designer.cs">
+      <DependentUpon>201803302029226_stuff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
+    <Compile Include="Models\LocationGetter.cs" />
     <Compile Include="Models\TotalDefense.cs" />
     <Compile Include="Models\TotalOffense.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -476,6 +487,11 @@
     <Content Include="Views\TotalPitchings\Edit.cshtml" />
     <Content Include="Views\TotalPitchings\Index.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\LocationGetters\Create.cshtml" />
+    <Content Include="Views\LocationGetters\Delete.cshtml" />
+    <Content Include="Views\LocationGetters\Details.cshtml" />
+    <Content Include="Views\LocationGetters\Edit.cshtml" />
+    <Content Include="Views\LocationGetters\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -493,6 +509,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803292231113_adding stuuf.resx">
       <DependentUpon>201803292231113_adding stuuf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803301946287_location added.resx">
+      <DependentUpon>201803301946287_location added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803302029226_stuff.resx">
+      <DependentUpon>201803302029226_stuff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

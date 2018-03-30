@@ -14,7 +14,7 @@
     <div class="col-md-3">
         <h2>Registering Players</h2>
         <p>Click the btton to register all of your players</p>
-        <input type="button" value="Register Players" onclick="location.href='@Url.Action("Create", "Players", new { id = Model.Id })'" class="btn btn-default" />
+        <input type="button" value="Register Players" onclick="location.href='@Url.Action("Register", "Account", new { id = Model.Id })'" class="btn btn-default" />
     </div>
     <div class="col-md-3">
         <h2>Playing Games</h2>
@@ -30,5 +30,10 @@
         <h2></h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <input type="button" value="Schedule Events" onclick="location.href='@Url.Action("Create", "LineUps", new { id = Model.Id })'" class="btn btn-default" />
+    </div>
+    <div class="col-md-3">
+        <h2></h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <input type="button" value="Schedule Events" onclick="location.href='@Url.Action("Create", "LocationGetters", new { id = Model.Id })'" class="btn btn-default" />
     </div>
 </div>
