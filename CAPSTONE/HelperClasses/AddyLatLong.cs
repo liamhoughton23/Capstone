@@ -13,7 +13,7 @@ namespace CAPSTONE.HelperClasses
         private ApplicationDbContext db = new ApplicationDbContext();
         public List<string> GetLatLng(string model)
         {
-            string requestUri = "https://maps.googleapis.com/maps/api/geocode/xml?key=AIzaSyC4ALH2fGv4h1UC3bN0y8QgmOJCEhop7K8&address=" + Uri.EscapeDataString(model);
+            string requestUri = "https://maps.googleapis.com/maps/api/geocode/xml?key=AIzaSyCnjZExxF6uCz-ynsgHHKtJjJlhx8x3Bt8&address=" + Uri.EscapeDataString(model);
             List<string> latlng = new List<string>();
             WebRequest request = WebRequest.Create(requestUri);
             WebResponse response = request.GetResponse();

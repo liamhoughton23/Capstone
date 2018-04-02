@@ -706,15 +706,34 @@ window.Modernizr = (function( window, document, undefined ) {
     //   WebOS github.com/Modernizr/Modernizr/issues/342
     //   WP7   github.com/Modernizr/Modernizr/issues/538
     tests['fontface'] = function() {
+
         var bool;
+        injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}', function (node, rule) {
+            var style = document.getElementById('smodernizr'),
+                sheet = style.sheet || style.styleSheet,
+                cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
 
-        injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}', function( node, rule ) {
-          var style = document.getElementById('smodernizr'),
-              sheet = style.sheet || style.styleSheet,
-              cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
-
-          bool = /src/i.test(cssText) && cssText.indexOf(rule.split(' ')[0]) === 0;
+            bool = /src/i.test(cssText) && cssText.indexOf(rule.split(' ')[0]) === 0;
         });
+        
+        //    injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}', function (node, rule) {
+                //var style = document.getElementById('smodernizr'),
+                //    sheet = style.sheet || style.styleSheet;
+                //try{
+                //    style.cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
+                //}
+                //catch (Exception) {
+                //    alert('Failed');
+                //}
+
+                //if (!style.cssText) {
+                //    bool = false;
+                //}
+                //else {
+                //    bool = /src/i.test(style.cssText) && style.cssText.indexOf(rule.split(' ')[0]) === 0;
+                //}
+            //});
+        
 
         return bool;
     };

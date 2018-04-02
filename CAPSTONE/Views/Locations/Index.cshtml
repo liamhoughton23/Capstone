@@ -1,0 +1,135 @@
+﻿@model IEnumerable<CAPSTONE.Models.Location>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<head>
+    <style>
+        #map {
+            height: 400px;
+            width: 800px;
+        }
+    </style>
+</head>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Locations)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Latitude2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Longitude2)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Locations)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude2)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.LocationID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.LocationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.LocationID })
+            </td>
+        </tr>
+    }
+</table>
+<div id="map"></div>
+<script>
+    function initMap() {
+        //try{
+        var user = @Html.Raw(Json.Encode(Model));
+        var pointA = new google.maps.LatLng(user[0]['Latitude'], user[0]['Longitude']);
+        pointB = new google.maps.LatLng(user[0]['Latitude2'], user[0]['Longitude2']);
+        myOptions = {
+            zoom: 7,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map
+        }),
+        markerA = new google.maps.Marker({
+            position: pointA,
+            title: "point A",
+            label: "A",
+            map: map
+        }),
+        markerB = new google.maps.Marker({
+            position: pointB,
+            title: "point B",
+            label: "B",
+            map: map
+        });
+
+         
+        calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+           
+            //catch(Exception){
+            //        alert('Failed');
+            //    }
+        //}
+    }
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+        directionsService.route({
+            origin: pointA,
+            destination: pointB,
+            avoidTolls: true,
+            avoidHighways: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            } else {
+                alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
+    initMap();
+
+
+</script>
+@*<script type="text/javascript" src="AIzaSyCnjZExxF6uCz-ynsgHHKtJjJlhx8x3Bt8">
+    </script>*@
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnjZExxF6uCz-ynsgHHKtJjJlhx8x3Bt8&callback=initMap">
+</script>
+

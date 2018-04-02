@@ -63,6 +63,6 @@ namespace CAPSTONE.Models
 
         public System.Data.Entity.DbSet<CAPSTONE.Models.TotalPitching> TotalPitchings { get; set; }
 
-        public System.Data.Entity.DbSet<CAPSTONE.Models.LocationGetter> LocationGetters { get; set; }
+       public DbSet<Location> Location { get; set; }
     }
 }
