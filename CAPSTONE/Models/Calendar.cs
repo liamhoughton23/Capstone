@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -22,7 +23,9 @@ namespace CAPSTONE.Models
         public string Color { get; set; }
 
         public bool IsFullDay { get; set; }
-        
+
+        public int CoachID { get; set; }
+
 
 
     }

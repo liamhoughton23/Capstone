@@ -47,10 +47,12 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CoachID,TeamName,FirstName,LastName")] Coach coach)
+        public ActionResult Create([Bind(Include = "CoachID,TeamName,FirstName,LastName,UserId")] Coach coach)
         {
             if (ModelState.IsValid)
             {
+                string user = User.Identity.GetUserId();
+                coach.UserId = user;
                 db.Coaches.Add(coach);
                 db.SaveChanges();
                 return RedirectToAction("Home", "Coaches");
@@ -137,6 +139,20 @@ namespace CAPSTONE.Controllers
             var resultToUser = result.FirstOrDefault();
             return View(resultToUser);
         }
+
+        //List<Calendar> newList = new List<Calendar>();
+        //string user = User.Identity.GetUserId();
+        //int realUser = Convert.ToInt32(user);
+        //var result = from row in db.Calendar where row.CoachID == realUser select row;
+        //var resultToUser = result.FirstOrDefault();
+        //int compareIDs = resultToUser.CoachID;
+        //        foreach (var item in db.Calendar)
+        //        {
+        //            if(item.CoachID == CoachID)
+        //            {
+
+        //            }
+        //        }
 
     }
 }

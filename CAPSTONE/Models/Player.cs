@@ -20,6 +20,9 @@ namespace CAPSTONE.Models
         [ForeignKey("CoachID")]
         public  virtual Coach Coach { get; set; }
 
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
 
 
 

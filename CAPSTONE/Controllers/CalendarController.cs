@@ -1,4 +1,5 @@
 ﻿using CAPSTONE.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,8 +22,24 @@ namespace CAPSTONE.Controllers
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var events = db.Calendar.ToList();
-                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                List<Calendar> newList = new List<Calendar>();
+
+                string user = User.Identity.GetUserId();                        
+                var coachRow = from row in db.Coaches where row.UserId == user select row;
+                var coachRowResult = coachRow.FirstOrDefault();
+                int coachID = coachRowResult.CoachID;
+                var playerRow = from row in db.Players where row.UserId == user select row;
+                var playerRowResult = coachRow.FirstOrDefault();
+                int playerCoachID = playerRowResult.CoachID;
+                        foreach (var item in db.Calendar)
+                        {
+                            if(item.CoachID == coachID || item.CoachID == playerCoachID)
+                              {
+                                  newList.Add(item);
+                              }
+                        }
+
+                return new JsonResult { Data = newList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 
@@ -44,10 +61,21 @@ namespace CAPSTONE.Controllers
                         v.Description = e.Description;
                         v.IsFullDay = e.IsFullDay;
                         v.Color = e.Color;
+                        v.CoachID = e.CoachID;
+                        string user = User.Identity.GetUserId();
+                        var coachRow = from row in dc.Coaches where row.UserId == user select row;
+                        var coachRowResult = coachRow.FirstOrDefault();
+                        int coachID = coachRowResult.CoachID;
+                        v.CoachID = coachID;
                     }
                 }
                 else
                 {
+                    string user = User.Identity.GetUserId();
+                    var coachRow = from row in dc.Coaches where row.UserId == user select row;
+                    var coachRowResult = coachRow.FirstOrDefault();
+                    int coachID = coachRowResult.CoachID;
+                    e.CoachID = coachID;
                     dc.Calendar.Add(e);
                 }
                 dc.SaveChanges();

@@ -116,7 +116,8 @@
                                 start: moment(v.Start),
                                 end: v.End != null ? moment(v.End) : null,
                                 color: v.Color,
-                                allDay: v.IsFullDay
+                                allDay: v.IsFullDay,
+                                coachID: v.CoachID
                             });
                         })
 
@@ -185,7 +186,9 @@
                             start: start,
                             end: end,
                             allDay: false,
-                            color: ''
+                            color: '',
+                            coachID: ''
+                   
                         };
                         openAddEditForm();
                         $('#calendar').fullCalendar('unselect');
@@ -199,7 +202,8 @@
                             End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
                             Description: event.description,
                             ThemeColor: event.color,
-                            IsFullDay: event.allDay
+                            IsFullDay: event.allDay,
+                            CoachID: event.CoachID
                         };
                         SaveEvent(data);
                     }
@@ -252,6 +256,7 @@
                     $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
                     $('#txtDescription').val(selectedEvent.description);
                     $('#ddThemeColor').val(selectedEvent.color);
+                    $('#hdCoachID').val(selectedEvent.eventID);
                 }
                 $('#myModal').modal('hide');
                 $('#myModalSave').modal();
@@ -287,7 +292,8 @@
                     End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
                     Description: $('#txtDescription').val(),
                     ThemeColor: $('#ddThemeColor').val(),
-                    IsFullDay: $('#chkIsFullDay').is(':checked')
+                    IsFullDay: $('#chkIsFullDay').is(':checked'),
+                    CoachID: $('#hdCoachID').val()
                 }
                 SaveEvent(data);
                 // call function for submit data to the server 

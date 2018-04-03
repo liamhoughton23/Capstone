@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -48,10 +49,12 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PlayerID,FirstName,LastName,CoachID")] Player player)
+        public ActionResult Create([Bind(Include = "PlayerID,FirstName,LastName,CoachID,UserId")] Player player)
         {
             if (ModelState.IsValid)
             {
+                string user = User.Identity.GetUserId();
+                player.UserId = user;
                 db.Players.Add(player);
                 db.SaveChanges();
                 return RedirectToAction("Index");

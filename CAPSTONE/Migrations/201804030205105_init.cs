@@ -3,7 +3,7 @@ namespace CAPSTONE.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addingstuuf : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -18,8 +18,11 @@ namespace CAPSTONE.Migrations
                         End = c.DateTime(nullable: false),
                         Color = c.String(),
                         IsFullDay = c.Boolean(nullable: false),
+                        CoachID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.EventID);
+                .PrimaryKey(t => t.EventID)
+                .ForeignKey("dbo.Coaches", t => t.CoachID, cascadeDelete: true)
+                .Index(t => t.CoachID);
             
             CreateTable(
                 "dbo.Coaches",
@@ -29,8 +32,69 @@ namespace CAPSTONE.Migrations
                         TeamName = c.String(),
                         FirstName = c.String(),
                         LastName = c.String(),
+                        UserId = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.CoachID);
+                .PrimaryKey(t => t.CoachID)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUsers",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Email = c.String(maxLength: 256),
+                        EmailConfirmed = c.Boolean(nullable: false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
+                        UserName = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+            
+            CreateTable(
+                "dbo.AspNetUserClaims",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        ClaimType = c.String(),
+                        ClaimValue = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUserLogins",
+                c => new
+                    {
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
             
             CreateTable(
                 "dbo.DefenseStats",
@@ -58,10 +122,13 @@ namespace CAPSTONE.Migrations
                         FirstName = c.String(),
                         LastName = c.String(),
                         CoachID = c.Int(nullable: false),
+                        UserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.PlayerID)
                 .ForeignKey("dbo.Coaches", t => t.CoachID, cascadeDelete: true)
-                .Index(t => t.CoachID);
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.CoachID)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.TotalOffenses",
@@ -103,6 +170,20 @@ namespace CAPSTONE.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
                 .Index(t => t.PlayerID);
+            
+            CreateTable(
+                "dbo.Locations",
+                c => new
+                    {
+                        LocationID = c.Int(nullable: false, identity: true),
+                        Locations = c.String(),
+                        Latitude = c.String(),
+                        Longitude = c.String(),
+                        Destination = c.String(),
+                        Latitude2 = c.String(),
+                        Longitude2 = c.String(),
+                    })
+                .PrimaryKey(t => t.LocationID);
             
             CreateTable(
                 "dbo.OffenseStats",
@@ -155,19 +236,6 @@ namespace CAPSTONE.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
             
             CreateTable(
                 "dbo.SubmitDefenses",
@@ -273,58 +341,10 @@ namespace CAPSTONE.Migrations
                 .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
                 .Index(t => t.PlayerID);
             
-            CreateTable(
-                "dbo.AspNetUsers",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Email = c.String(maxLength: 256),
-                        EmailConfirmed = c.Boolean(nullable: false),
-                        PasswordHash = c.String(),
-                        SecurityStamp = c.String(),
-                        PhoneNumber = c.String(),
-                        PhoneNumberConfirmed = c.Boolean(nullable: false),
-                        TwoFactorEnabled = c.Boolean(nullable: false),
-                        LockoutEndDateUtc = c.DateTime(),
-                        LockoutEnabled = c.Boolean(nullable: false),
-                        AccessFailedCount = c.Int(nullable: false),
-                        UserName = c.String(nullable: false, maxLength: 256),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserClaims",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        ClaimType = c.String(),
-                        ClaimValue = c.String(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.AspNetUserLogins",
-                c => new
-                    {
-                        LoginProvider = c.String(nullable: false, maxLength: 128),
-                        ProviderKey = c.String(nullable: false, maxLength: 128),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.TotalPitchings", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.TotalDefenses", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.SubmitPitchings", "PlayerID", "dbo.Players");
@@ -336,40 +356,50 @@ namespace CAPSTONE.Migrations
             DropForeignKey("dbo.LineUps", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.TotalOffenses", "PlayerID", "dbo.Players");
             DropForeignKey("dbo.DefenseStats", "PlayerID", "dbo.Players");
+            DropForeignKey("dbo.Players", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Players", "CoachID", "dbo.Coaches");
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropForeignKey("dbo.Calendars", "CoachID", "dbo.Coaches");
+            DropForeignKey("dbo.Coaches", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.TotalPitchings", new[] { "PlayerID" });
             DropIndex("dbo.TotalDefenses", new[] { "PlayerID" });
             DropIndex("dbo.SubmitPitchings", new[] { "PlayerID" });
             DropIndex("dbo.SubmitOffenses", new[] { "PlayerID" });
             DropIndex("dbo.SubmitDefenses", new[] { "PlayerID" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.PitchStats", new[] { "PlayerID" });
             DropIndex("dbo.OffenseStats", new[] { "PlayerID" });
             DropIndex("dbo.LineUps", new[] { "PlayerID" });
             DropIndex("dbo.TotalOffenses", new[] { "PlayerID" });
+            DropIndex("dbo.Players", new[] { "UserId" });
             DropIndex("dbo.Players", new[] { "CoachID" });
             DropIndex("dbo.DefenseStats", new[] { "PlayerID" });
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Coaches", new[] { "UserId" });
+            DropIndex("dbo.Calendars", new[] { "CoachID" });
             DropTable("dbo.TotalPitchings");
             DropTable("dbo.TotalDefenses");
             DropTable("dbo.SubmitPitchings");
             DropTable("dbo.SubmitOffenses");
             DropTable("dbo.SubmitDefenses");
-            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.PitchStats");
             DropTable("dbo.OffenseStats");
+            DropTable("dbo.Locations");
             DropTable("dbo.LineUps");
             DropTable("dbo.TotalOffenses");
             DropTable("dbo.Players");
             DropTable("dbo.DefenseStats");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
             DropTable("dbo.Coaches");
             DropTable("dbo.Calendars");
         }
