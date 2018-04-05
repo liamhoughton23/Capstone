@@ -49,19 +49,27 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PlayerID,FirstName,LastName,CoachID,UserId")] Player player)
+        public ActionResult Create([Bind(Include = "PlayerID,FirstName,LastName,CoachID,UserId,PhoneNumber,Code,Email")] Player player)
         {
-            if (ModelState.IsValid)
-            {
-                string user = User.Identity.GetUserId();
-                player.UserId = user;
-                db.Players.Add(player);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "TeamName", player.CoachID);
-            return View(player);
+            string user = User.Identity.GetUserId();
+            var result = from row in db.Users where row.Id == user select row;
+            var rowResult = result.FirstOrDefault();
+            player.UserId = user;
+            player.PhoneNumber = rowResult.PhoneNumber;
+            player.Email = rowResult.Email;
+            db.Players.Add(player);
+            db.SaveChanges();
+            var coachResult = from row in db.Coaches where row.CoachID == player.CoachID select row;
+            var first = coachResult.FirstOrDefault();
+            player.Code = first.Code;
+            db.Entry(player).State = EntityState.Modified;
+            db.SaveChanges();
+            //var coachRow = from row in db.Coaches where row.CoachID == player.CoachID select row;
+            //var coachRowResult = coachRow.FirstOrDefault();
+            //player.Code = coachRowResult.Code;
+            //db.Entry(player).State = EntityState.Modified;
+            //db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Players/Edit/5

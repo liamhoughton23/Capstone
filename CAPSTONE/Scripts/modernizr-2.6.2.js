@@ -1,26 +1,3 @@
-/* NUGET: BEGIN LICENSE TEXT
- *
- * Microsoft grants you the right to use these script files for the sole
- * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online service, subject to the applicable licensing or use
- * terms; or (ii) using the files as included with a Microsoft product subject
- * to that product's license terms. Microsoft reserves all other rights to the
- * files not expressly granted by Microsoft, whether by implication, estoppel
- * or otherwise. Insofar as a script file is dual licensed under GPL,
- * Microsoft neither took the code under GPL nor distributes it thereunder but
- * under the terms set out in this paragraph. All notices and licenses
- * below are for informational purposes only.
- *
- * Copyright (c) Faruk Ates, Paul Irish, Alex Sexton; http://www.modernizr.com/license/
- *
- * Includes matchMedia polyfill; Copyright (c) 2010 Filament Group, Inc; http://opensource.org/licenses/MIT
- *
- * Includes material adapted from ES5-shim https://github.com/kriskowal/es5-shim/blob/master/es5-shim.js; Copyright 2009-2012 by contributors; http://opensource.org/licenses/MIT
- *
- * Includes material from css-support; Copyright (c) 2005-2012 Diego Perini; https://github.com/dperini/css-support/blob/master/LICENSE
- *
- * NUGET: END LICENSE TEXT */
-
 /*!
  * Modernizr v2.6.2
  * www.modernizr.com
@@ -706,34 +683,15 @@ window.Modernizr = (function( window, document, undefined ) {
     //   WebOS github.com/Modernizr/Modernizr/issues/342
     //   WP7   github.com/Modernizr/Modernizr/issues/538
     tests['fontface'] = function() {
-
         var bool;
-        injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}', function (node, rule) {
-            var style = document.getElementById('smodernizr'),
-                sheet = style.sheet || style.styleSheet,
-                cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
 
-            bool = /src/i.test(cssText) && cssText.indexOf(rule.split(' ')[0]) === 0;
+        injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}', function( node, rule ) {
+          var style = document.getElementById('smodernizr'),
+              sheet = style.sheet || style.styleSheet,
+              cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
+
+          bool = /src/i.test(cssText) && cssText.indexOf(rule.split(' ')[0]) === 0;
         });
-        
-        //    injectElementWithStyles('@font-face {font-family:"font";src:url("https://")}', function (node, rule) {
-                //var style = document.getElementById('smodernizr'),
-                //    sheet = style.sheet || style.styleSheet;
-                //try{
-                //    style.cssText = sheet ? (sheet.cssRules && sheet.cssRules[0] ? sheet.cssRules[0].cssText : sheet.cssText || '') : '';
-                //}
-                //catch (Exception) {
-                //    alert('Failed');
-                //}
-
-                //if (!style.cssText) {
-                //    bool = false;
-                //}
-                //else {
-                //    bool = /src/i.test(style.cssText) && style.cssText.indexOf(rule.split(' ')[0]) === 0;
-                //}
-            //});
-        
 
         return bool;
     };

@@ -24,7 +24,14 @@ namespace CAPSTONE.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
+        public string PhoneNumber { get; set; }
 
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Code { get; set; }
+
+        public string Email { get; set; }
 
 
 

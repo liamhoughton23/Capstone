@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using Microsoft.AspNet.Identity;
+using CAPSTONE.HelperClasses;
 
 namespace CAPSTONE.Controllers
 {
@@ -47,17 +48,26 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CoachID,TeamName,FirstName,LastName,UserId")] Coach coach)
+        public ActionResult Create([Bind(Include = "CoachID,TeamName,FirstName,LastName,UserId,PhoneNumber,Code,Email")] Coach coach)
         {
             if (ModelState.IsValid)
             {
                 string user = User.Identity.GetUserId();
+                var result = from row in db.Users where row.Id == user select row;
+                var rowResult = result.FirstOrDefault();
                 coach.UserId = user;
+                coach.PhoneNumber = rowResult.PhoneNumber;
+                coach.Code = GetCode();
+                coach.Email = rowResult.Email;
                 db.Coaches.Add(coach);
                 db.SaveChanges();
+                Message message = new Message();
+                message.content = "Your code is: " + coach.Code;
+                message.recipient = coach.PhoneNumber;
+                HelperClasses.Twilio twilio = new HelperClasses.Twilio();
+                twilio.Send(message, coach.PhoneNumber);
                 return RedirectToAction("Home", "Coaches");
             }
-
             return View(coach);
         }
 
@@ -81,12 +91,13 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CoachID,TeamName,FirstName,LastName")] Coach coach)
+        public ActionResult Edit([Bind(Include = "CoachID,TeamName,FirstName,LastName,UserId,PhoneNumber,Code")] Coach coach)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(coach).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(coach);
@@ -138,6 +149,22 @@ namespace CAPSTONE.Controllers
             var result = from row in db.Users where row.Id == sameUser select row;
             var resultToUser = result.FirstOrDefault();
             return View(resultToUser);
+        }
+
+        public string GetCode()
+        {
+            Random rand = new Random();
+            int firstNumber = rand.Next(1000, 9999);
+            //int secondNumber = rand.Next(0, 9);
+            //int thirdNumber = rand.Next(0, 9);
+            //int fourthNumber = rand.Next(0, 9);
+            //int[] code = new int[4];
+            //code[0] = firstNumber;
+            //code[1] = secondNumber;
+            //code[2] = thirdNumber;
+            //code[3] = fourthNumber;
+            string stringCode = firstNumber.ToString();
+            return stringCode;
         }
 
         //List<Calendar> newList = new List<Calendar>();
