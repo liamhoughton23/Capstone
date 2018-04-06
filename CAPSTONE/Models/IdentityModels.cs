@@ -18,6 +18,8 @@ namespace CAPSTONE.Models
 
         public string RoleName { get; set; }
 
+        public bool Member { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -73,5 +75,7 @@ namespace CAPSTONE.Models
         public System.Data.Entity.DbSet<CAPSTONE.Models.TotalPitching> TotalPitchings { get; set; }
 
        public DbSet<Location> Location { get; set; }
+
+        public DbSet<TeamConfirm> Code { get; set; }
     }
 }

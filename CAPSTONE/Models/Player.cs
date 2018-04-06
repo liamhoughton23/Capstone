@@ -26,12 +26,11 @@ namespace CAPSTONE.Models
 
         public string PhoneNumber { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Code { get; set; }
 
         public string Email { get; set; }
+
+        public bool Member { get; set; }
 
 
 

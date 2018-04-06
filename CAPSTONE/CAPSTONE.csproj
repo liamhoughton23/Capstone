@@ -276,6 +276,7 @@
     <Compile Include="Controllers\DefenseStatsController.cs" />
     <Compile Include="Controllers\LineUpsController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\TeamConfirmsController.cs" />
     <Compile Include="Controllers\TotalDefensesController.cs" />
     <Compile Include="Controllers\TotalOffensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -325,10 +326,51 @@
     <Compile Include="Migrations\201804050046372_code is now back to password.Designer.cs">
       <DependentUpon>201804050046372_code is now back to password.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804051848300_added member.cs" />
+    <Compile Include="Migrations\201804051848300_added member.Designer.cs">
+      <DependentUpon>201804051848300_added member.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804051854260_changed email.cs" />
+    <Compile Include="Migrations\201804051854260_changed email.Designer.cs">
+      <DependentUpon>201804051854260_changed email.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804051857569_chsanged code status.cs" />
+    <Compile Include="Migrations\201804051857569_chsanged code status.Designer.cs">
+      <DependentUpon>201804051857569_chsanged code status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804052023144_added migration.cs" />
+    <Compile Include="Migrations\201804052023144_added migration.Designer.cs">
+      <DependentUpon>201804052023144_added migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804052059090_changed the name of code model.cs" />
+    <Compile Include="Migrations\201804052059090_changed the name of code model.Designer.cs">
+      <DependentUpon>201804052059090_changed the name of code model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804052221363_code is not password anymore.cs" />
+    <Compile Include="Migrations\201804052221363_code is not password anymore.Designer.cs">
+      <DependentUpon>201804052221363_code is not password anymore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804052313211_fucking work bitch.cs" />
+    <Compile Include="Migrations\201804052313211_fucking work bitch.Designer.cs">
+      <DependentUpon>201804052313211_fucking work bitch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804052318019_fuck you.cs" />
+    <Compile Include="Migrations\201804052318019_fuck you.Designer.cs">
+      <DependentUpon>201804052318019_fuck you.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804052319524_shits.cs" />
+    <Compile Include="Migrations\201804052319524_shits.Designer.cs">
+      <DependentUpon>201804052319524_shits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804061916234_added team confirm.cs" />
+    <Compile Include="Migrations\201804061916234_added team confirm.Designer.cs">
+      <DependentUpon>201804061916234_added team confirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefenseStats.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\TeamConfirm.cs" />
     <Compile Include="Models\TotalDefense.cs" />
     <Compile Include="Models\TotalOffense.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -594,8 +636,12 @@
     <Content Include="Views\LineUps\SentText.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
-    <Content Include="Views\Account\CodeCoach.cshtml" />
-    <Content Include="Views\Account\CodePlayer.cshtml" />
+    <Content Include="Views\Account\CodeConfirm.cshtml" />
+    <Content Include="Views\Players\Home.cshtml" />
+    <Content Include="Views\TeamConfirms\Create.cshtml" />
+    <Content Include="Views\Players\PlayerOffense.cshtml" />
+    <Content Include="Views\Players\PlayerDefense.cshtml" />
+    <Content Include="Views\Players\PlayerPitch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -627,6 +673,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804050046372_code is now back to password.resx">
       <DependentUpon>201804050046372_code is now back to password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804051848300_added member.resx">
+      <DependentUpon>201804051848300_added member.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804051854260_changed email.resx">
+      <DependentUpon>201804051854260_changed email.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804051857569_chsanged code status.resx">
+      <DependentUpon>201804051857569_chsanged code status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804052023144_added migration.resx">
+      <DependentUpon>201804052023144_added migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804052059090_changed the name of code model.resx">
+      <DependentUpon>201804052059090_changed the name of code model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804052221363_code is not password anymore.resx">
+      <DependentUpon>201804052221363_code is not password anymore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804052313211_fucking work bitch.resx">
+      <DependentUpon>201804052313211_fucking work bitch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804052318019_fuck you.resx">
+      <DependentUpon>201804052318019_fuck you.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804052319524_shits.resx">
+      <DependentUpon>201804052319524_shits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804061916234_added team confirm.resx">
+      <DependentUpon>201804061916234_added team confirm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

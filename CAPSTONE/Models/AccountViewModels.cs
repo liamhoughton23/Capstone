@@ -46,6 +46,7 @@ namespace CAPSTONE.Models
         public string Email { get; set; }
     }
 
+
     public class LoginViewModel
     {
         //[Required]

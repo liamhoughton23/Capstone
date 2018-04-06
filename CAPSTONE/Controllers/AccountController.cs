@@ -89,6 +89,7 @@ namespace CAPSTONE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -96,11 +97,18 @@ namespace CAPSTONE.Controllers
             //model.RoleName = 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var playerRow = from row in db.Players where row.Email == model.Email select row;
+            var playerRowResult = playerRow.FirstOrDefault();
+           
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("CodeCoach", "Account");
+                    if(playerRowResult != null)
+                    {
+                        return RedirectToAction("Home", "Players");
+                    }
+                    return RedirectToAction("Home", "Coaches");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -183,6 +191,8 @@ namespace CAPSTONE.Controllers
             //    HelperClasses.Twilio twilio = new HelperClasses.Twilio();
             //    twilio.Send(message, userIn.PhoneNumber);
             //}
+
+
 
             if (ModelState.IsValid)
             {
@@ -464,116 +474,74 @@ namespace CAPSTONE.Controllers
             base.Dispose(disposing);
         }
 
-        [AllowAnonymous]
-        public ActionResult CodeCoach(ApplicationUser user)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            if (user.RoleName == "Player" && user.Code == null)
-            {
-                string personUsing = User.Identity.GetUserId();
-                var playerRow = from row in db.Players where row.UserId == personUsing select row;
-                var playerRowResult = playerRow.FirstOrDefault();
-                user.Code = playerRowResult.Code;
-                //db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            else if (user.RoleName == "Coach" && user.Code == null)
-            {
-                string personUsing = User.Identity.GetUserId();
-                var coachRow = from row in db.Coaches where row.UserId == personUsing select row;
-                var coachRowResult = coachRow.FirstOrDefault();
-                user.Code = coachRowResult.Code;
-                //db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            return View();
-        }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CodeCoach(Coach coach, string returnUrl)
-        {
-
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return RedirectToAction("Home", "Coaches");
-            //}
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
+        //[AllowAnonymous]
+        //public ActionResult CodeConfirm()
+        //{
+        //    //ApplicationDbContext db = new ApplicationDbContext();
+        //    //if (user.RoleName == "Player" && user.Code == null)
+        //    //{
+        //    //    string personUsing = User.Identity.GetUserId();
+        //    //    var playerRow = from row in db.Players where row.UserId == personUsing select row;
+        //    //    var playerRowResult = playerRow.FirstOrDefault();
+        //    //    user.Code = playerRowResult.Code;
+        //    //    //db.Entry(user).State = EntityState.Modified;
+        //    //    db.SaveChanges();
+        //    //}
+        //    //else if (user.RoleName == "Coach" && user.Code == null)
+        //    //{
+        //    //    string personUsing = User.Identity.GetUserId();
+        //    //    var coachRow = from row in db.Coaches where row.UserId == personUsing select row;
+        //    //    var coachRowResult = coachRow.FirstOrDefault();
+        //    //    user.Code = coachRowResult.Code;
+        //    //    //db.Entry(user).State = EntityState.Modified;
+        //    //    db.SaveChanges();
+        //    //}
             
-            var result = await SignInManager.PasswordSignInAsync(coach.Email, coach.Code, isPersistent: false, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToAction("Home", "Coaches");
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(coach);
-            }
-        }
-        [AllowAnonymous]
-        public ActionResult CodePlayer(ApplicationUser user)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            if (user.RoleName == "Player" && user.Code == null)
-            {
-                string personUsing = User.Identity.GetUserId();
-                var playerRow = from row in db.Players where row.UserId == personUsing select row;
-                var playerRowResult = playerRow.FirstOrDefault();
-                user.Code = playerRowResult.Code;
-                //db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            else if (user.RoleName == "Coach" && user.Code == null)
-            {
-                string personUsing = User.Identity.GetUserId();
-                var coachRow = from row in db.Coaches where row.UserId == personUsing select row;
-                var coachRowResult = coachRow.FirstOrDefault();
-                user.Code = coachRowResult.Code;
-                //db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            return View();
-        }
+        //    return View();
+        //}
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CodePlayer(Player player, string returnUrl)
-        {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CodeConfirm([Bind(Include = "Key,Code")]CodeConfirmViewModel code)
+        //{
 
+        //    ApplicationDbContext db = new ApplicationDbContext();
+        //    db.Code.Add(code);
+        //    db.SaveChanges();
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return RedirectToAction("Home", "Coaches");
+        //    //}
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return RedirectToAction("Home", "Coaches");
-            //}
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-
-            var result = await SignInManager.PasswordSignInAsync(player.Email, player.Code, isPersistent: false, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToAction("Home", "Players");
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(player);
-            }
-        }
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+        //    //var playerRow = from row in db.Players where row.Email == model.Email select row;
+        //    var playerRowResult = playerRow.FirstOrDefault();
+        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, shouldLockout: false);
+        //    if (playerRowResult.Code == code.Code)
+        //    {
+        //        playerRowResult.Member = true;
+        //        db.SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        result = SignInStatus.Failure;
+        //    }
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return RedirectToAction("Home", "Players");
+        //        case SignInStatus.LockedOut:
+        //            return View("Lockout");
+        //        case SignInStatus.RequiresVerification:
+        //            return RedirectToAction("SendCode");
+        //        case SignInStatus.Failure:
+        //        default:
+        //            ModelState.AddModelError("", "Invalid login attempt.");
+        //            return View(code);
+        //    }
+        //}
 
         #region Helpers
         // Used for XSRF protection when adding external logins
@@ -636,87 +604,9 @@ namespace CAPSTONE.Controllers
             {
                 Random rand = new Random();
                 int firstNumber = rand.Next(1000, 9999);
-                //int secondNumber = rand.Next(0, 9);
-                //int thirdNumber = rand.Next(0, 9);
-                //int fourthNumber = rand.Next(0, 9);
-                //int[] code = new int[4];
-                //code[0] = firstNumber;
-                //code[1] = secondNumber;
-                //code[2] = thirdNumber;
-                //code[3] = fourthNumber;
                 string stringCode = firstNumber.ToString();
                 return stringCode;
             }
-            //                    case SignInStatus.Success:
-            //            switch (results)
-            //            {
-            //                case SignInStatus.Success:
-            //            string user = User.Identity.GetUserId();
-            //    var userRow = from row in db.Users where row.Id == user select row;
-            //    var userRowResult = userRow.FirstOrDefault();
-            //    model.RoleName = userRowResult.RoleName;
-            //            if (model.RoleName == "Player")
-            //            {
-            //                return RedirectToAction("Home", "Players");
-            //}
-            //            return RedirectToAction("Home", "Coaches");
-
-
-
-            //[HttpPost]
-            //[AllowAnonymous]
-            //[ValidateAntiForgeryToken]
-            //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-            //{
-            //    ApplicationDbContext db = new ApplicationDbContext();
-            //    //if (!ModelState.IsValid)
-            //    //{
-            //    //    return RedirectToAction("Home", "Coaches");
-            //    //}
-
-
-            //    // This doesn't count login failures towards account lockout
-            //    // To enable password failures to trigger account lockout, change to shouldLockout: true
-            //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            //    var results = await SignInManager.PasswordSignInAsync(model.Email, model.Code, model.RememberMe, shouldLockout: false);
-            //    if (result == SignInStatus.Success && results == SignInStatus.Success)
-            //    {
-            //        string user = User.Identity.GetUserId();
-            //        var userRow = from row in db.Users where row.Id == user select row;
-            //        var userRowResult = userRow.FirstOrDefault();
-            //        model.RoleName = userRowResult.RoleName;
-            //        if (model.RoleName == "Player")
-            //        {
-            //            return RedirectToAction("Home", "Coaches");
-            //        }
-            //        return RedirectToAction("Home", "Coaches");
-            //    }
-            //    else if (result == SignInStatus.LockedOut || results == SignInStatus.LockedOut)
-            //    {
-            //        result = SignInStatus.LockedOut;
-            //        results = SignInStatus.LockedOut;
-            //        return View("Lockout");
-            //    }
-            //    else if (result == SignInStatus.RequiresVerification || results == SignInStatus.RequiresVerification)
-            //    {
-            //        result = SignInStatus.RequiresVerification;
-            //        results = SignInStatus.RequiresVerification;
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            //    }
-            //    else if (result == SignInStatus.Failure || results == SignInStatus.Failure)
-            //    {
-            //        result = SignInStatus.Failure;
-            //        results = SignInStatus.Failure;
-            //        ModelState.AddModelError("", "Invalid login attempt.");
-            //        return View(model);
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Invalid login attempt.");
-            //        return View(model);
-            //    }
-
-            //}
         }
         #endregion
     }

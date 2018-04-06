@@ -49,7 +49,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PlayerID,FirstName,LastName,CoachID,UserId,PhoneNumber,Code,Email")] Player player)
+        public ActionResult Create([Bind(Include = "PlayerID,FirstName,LastName,CoachID,UserId,PhoneNumber,Code,Email,Memeber")] Player player)
         {
             string user = User.Identity.GetUserId();
             var result = from row in db.Users where row.Id == user select row;
@@ -57,6 +57,7 @@ namespace CAPSTONE.Controllers
             player.UserId = user;
             player.PhoneNumber = rowResult.PhoneNumber;
             player.Email = rowResult.Email;
+            player.Member = false;
             db.Players.Add(player);
             db.SaveChanges();
             var coachResult = from row in db.Coaches where row.CoachID == player.CoachID select row;

@@ -48,7 +48,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CoachID,TeamName,FirstName,LastName,UserId,PhoneNumber,Code,Email")] Coach coach)
+        public ActionResult Create([Bind(Include = "CoachID,TeamName,FirstName,LastName,UserId,PhoneNumber,Code")] Coach coach)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,6 @@ namespace CAPSTONE.Controllers
                 coach.UserId = user;
                 coach.PhoneNumber = rowResult.PhoneNumber;
                 coach.Code = GetCode();
-                coach.Email = rowResult.Email;
                 db.Coaches.Add(coach);
                 db.SaveChanges();
                 Message message = new Message();
