@@ -38,9 +38,10 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: TotalPitchings/Create
-        public void Create(int PlayerID, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs, TotalPitching total)
+        public void Create(int PlayerID, int CoachId, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs, TotalPitching total)
         {
             total.PlayerID = PlayerID;
+            total.CoachID = CoachId;
             total.OpponentOfficialAtBats = OpponentOfficialAtBats;
             total.OpponentHits = OpponentHits;
             total.EarnedRunsScored = EarnedRunsScored;
@@ -54,7 +55,7 @@ namespace CAPSTONE.Controllers
             db.TotalPitchings.Add(total);
             db.SaveChanges();
             PitchStatsController pitch = new PitchStatsController();
-            pitch.Create(total.PlayerID, total.OpponentOfficialAtBats, total.OpponentHits, total.EarnedRunsScored, total.InningsPitched, total.StrikeOuts, total.HomeRuns, total.Walks, total.BattersHBP, total.PickOffAttempts, total.PickOffAttempts);
+            pitch.Create(total.PlayerID, total.CoachID, total.OpponentOfficialAtBats, total.OpponentHits, total.EarnedRunsScored, total.InningsPitched, total.StrikeOuts, total.HomeRuns, total.Walks, total.BattersHBP, total.PickOffAttempts, total.PickOffAttempts);
         }
 
         // POST: TotalPitchings/Create
@@ -62,7 +63,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GameID,PlayerID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] TotalPitching totalPitching)
+        public ActionResult Create([Bind(Include = "GameID,PlayerID,CoachID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] TotalPitching totalPitching)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +77,7 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: TotalPitchings/Edit/5
-        public void Edit(int PlayerID, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs)
+        public void Edit(int PlayerID, int CoachId, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs)
         {
             //if (id == null)
             //{
@@ -93,6 +94,7 @@ namespace CAPSTONE.Controllers
             var result = from row in db.TotalPitchings where row.PlayerID == PlayerID select row;
             var resultToUser = result.FirstOrDefault();
             resultToUser.PlayerID = PlayerID;
+            resultToUser.CoachID = CoachId;
             resultToUser.OpponentOfficialAtBats = morph.AddingStats(OpponentOfficialAtBats, resultToUser.OpponentOfficialAtBats);
             resultToUser.OpponentHits = morph.AddingStats(OpponentHits, resultToUser.OpponentHits);
             resultToUser.EarnedRunsScored = morph.AddingStats(EarnedRunsScored, resultToUser.EarnedRunsScored);
@@ -106,7 +108,7 @@ namespace CAPSTONE.Controllers
             db.Entry(resultToUser).State = EntityState.Modified;
             db.SaveChanges();
             PitchStatsController pitch = new PitchStatsController();
-            pitch.Edit(resultToUser.PlayerID, resultToUser.OpponentOfficialAtBats, resultToUser.OpponentHits, resultToUser.EarnedRunsScored, resultToUser.InningsPitched, resultToUser.StrikeOuts, resultToUser.HomeRuns, resultToUser.Walks, resultToUser.BattersHBP, resultToUser.PickOffAttempts, resultToUser.PickOffs);
+            pitch.Edit(resultToUser.PlayerID, resultToUser.CoachID, resultToUser.OpponentOfficialAtBats, resultToUser.OpponentHits, resultToUser.EarnedRunsScored, resultToUser.InningsPitched, resultToUser.StrikeOuts, resultToUser.HomeRuns, resultToUser.Walks, resultToUser.BattersHBP, resultToUser.PickOffAttempts, resultToUser.PickOffs);
 
         }
 
@@ -115,7 +117,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GameID,PlayerID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] TotalPitching totalPitching)
+        public ActionResult Edit([Bind(Include = "GameID,PlayerID,CoachID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] TotalPitching totalPitching)
         {
             if (ModelState.IsValid)
             {

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -39,11 +40,12 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: OffenseStats/Create
-        public ActionResult Create(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
+        public ActionResult Create(int PlayerID, int CoachID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
         {
             OffenseHelpers helpers = new OffenseHelpers();
             //ViewBag.Player = new SelectList(db.Players, "PlayerID", "FirstName");
             offenseStats.PlayerID = PlayerID;
+            offenseStats.CoachID = CoachID;
             offenseStats.TotalPlateAppearances = helpers.Appearances(PlateAppearances);
             offenseStats.OfficialAtBats = helpers.OfficialAtBatsCalculator(PlateAppearances, Walks, HBP, Scrifices);
             offenseStats.TotalHits = helpers.TotalHitsCalulator(Singles, Doubles, Triples, HRs);
@@ -58,7 +60,6 @@ namespace CAPSTONE.Controllers
             offenseStats.RunsCreated = helpers.RunsCreatedCalcuator(offenseStats.TotalHits, Walks,TotalBases, offenseStats.OfficialAtBats);
             db.Offense.Add(offenseStats);
             db.SaveChanges();
-
             return View();
         }
 
@@ -87,7 +88,7 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: OffenseStats/Edit/5
-        public ActionResult Edit(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
+        public ActionResult Edit(int PlayerID, int CoachID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
         {
 
             //if (id == null)
@@ -104,6 +105,7 @@ namespace CAPSTONE.Controllers
             var result = from row in db.Offense where row.PlayerID == PlayerID select row;
             var resultToUser = result.FirstOrDefault();
             resultToUser.PlayerID = PlayerID;
+            resultToUser.CoachID = CoachID;
             resultToUser.TotalPlateAppearances = helpers.Appearances(PlateAppearances);
             resultToUser.OfficialAtBats = helpers.OfficialAtBatsCalculator(PlateAppearances, Walks, HBP, Scrifices);
             resultToUser.TotalHits = helpers.TotalHitsCalulator(Singles, Doubles, Triples, HRs);

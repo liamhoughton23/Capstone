@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -39,10 +40,11 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: PitchStats/Create
-        public void Create(int PlayerID, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs)
+        public void Create(int PlayerID, int CoachId, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs)
         {
             PitchingHelpers helpers = new PitchingHelpers();
             stats.PlayerID = PlayerID;
+            stats.CoachID = CoachId;
             stats.EarnedRunAvereage = helpers.ERAcalc(EarnedRunsScored, InningsPitched);
             stats.OpponentBattingAverage = helpers.OpponentBA(OpponentHits, OpponentOfficialAtBats);
             stats.WHIP = helpers.WHIP(Walks, OpponentHits, InningsPitched);
@@ -60,7 +62,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Key,PlayerID,EarnedRunAvereage,OpponentBattingAverage,WHIP,StrikeOuts,StrikeOutPercentage,PickOffPercentage,WalksPerAtBat,WalksPerInning")] PitchStats pitchStats)
+        public ActionResult Create([Bind(Include = "Key,PlayerID,CoachID,EarnedRunAvereage,OpponentBattingAverage,WHIP,StrikeOuts,StrikeOutPercentage,PickOffPercentage,WalksPerAtBat,WalksPerInning")] PitchStats pitchStats)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +76,7 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: PitchStats/Edit/5
-        public void Edit(int PlayerID, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs)
+        public void Edit(int PlayerID, int CoachId, int OpponentOfficialAtBats, int OpponentHits, int EarnedRunsScored, int InningsPitched, int StrikeOuts, int HomeRuns, int Walks, int BattersHBP, int PickOffAttempts, int PickOffs)
         {
             //if (id == null)
             //{
@@ -91,6 +93,7 @@ namespace CAPSTONE.Controllers
             var resultToUser = result.FirstOrDefault();
             PitchingHelpers helpers = new PitchingHelpers();
             resultToUser.PlayerID = PlayerID;
+            resultToUser.CoachID = CoachId;
             resultToUser.EarnedRunAvereage = helpers.ERAcalc(EarnedRunsScored, InningsPitched);
             resultToUser.OpponentBattingAverage = helpers.OpponentBA(OpponentHits, OpponentOfficialAtBats);
             resultToUser.WHIP = helpers.WHIP(Walks, OpponentHits, InningsPitched);
@@ -108,7 +111,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Key,PlayerID,EarnedRunAvereage,OpponentBattingAverage,WHIP,StrikeOuts,StrikeOutPercentage,PickOffPercentage,WalksPerAtBat,WalksPerInning")] PitchStats pitchStats)
+        public ActionResult Edit([Bind(Include = "Key,PlayerID,CoachID,EarnedRunAvereage,OpponentBattingAverage,WHIP,StrikeOuts,StrikeOutPercentage,PickOffPercentage,WalksPerAtBat,WalksPerInning")] PitchStats pitchStats)
         {
             if (ModelState.IsValid)
             {

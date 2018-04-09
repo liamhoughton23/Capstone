@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -40,7 +41,10 @@ namespace CAPSTONE.Controllers
         // GET: SubmitPitchings/Create
         public ActionResult Create()
         {
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName");
+            string user = User.Identity.GetUserId();
+            var userRow = from row in db.Coaches where row.UserId == user select row;
+            var first = userRow.FirstOrDefault();
+            ViewBag.PlayerID = new SelectList(db.Players.Where(o => o.CoachID == first.CoachID), "PlayerID", "FirstName");
             return View();
         }
 
@@ -49,28 +53,32 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GameID,PlayerID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] SubmitPitching submitPitching, TotalPitching stats)
+        public ActionResult Create([Bind(Include = "GameID,PlayerID,CoachID,OpponentOfficialAtBats,OpponentHits,EarnedRunsScored,InningsPitched,StrikeOuts,HomeRuns,Walks,BattersHBP,PickOffAttempts,PickOffs")] SubmitPitching submitPitching, TotalPitching stats)
         {        
             if (ModelState.IsValid)
            {
                 TotalPitchingsController total = new TotalPitchingsController();
                 MorphingTables morph = new MorphingTables();
                 PitchStatsController off = new PitchStatsController();
+                string user = User.Identity.GetUserId();
+                var coachRow = from row in db.Coaches where row.UserId == user select row;
+                var coachRowResult = coachRow.FirstOrDefault();
+                submitPitching.CoachID = coachRowResult.CoachID;
                 db.SubmitPitchings.Add(submitPitching);
                 db.SaveChanges();
                 foreach (var item in db.TotalPitchings)
                 {
                     if (item.PlayerID == submitPitching.PlayerID)
                     {
-                        total.Edit(submitPitching.PlayerID, submitPitching.OpponentOfficialAtBats, submitPitching.OpponentHits, submitPitching.EarnedRunsScored, submitPitching.InningsPitched, submitPitching.StrikeOuts, submitPitching.HomeRuns, submitPitching.Walks, submitPitching.BattersHBP, submitPitching.PickOffAttempts, submitPitching.PickOffs);
-                        return RedirectToAction("Index", "PitchStats");
+                        total.Edit(submitPitching.PlayerID, submitPitching.CoachID, submitPitching.OpponentOfficialAtBats, submitPitching.OpponentHits, submitPitching.EarnedRunsScored, submitPitching.InningsPitched, submitPitching.StrikeOuts, submitPitching.HomeRuns, submitPitching.Walks, submitPitching.BattersHBP, submitPitching.PickOffAttempts, submitPitching.PickOffs);
+                        return RedirectToAction("Home", "Coaches");
                     }
                 }
 
-                total.Create(submitPitching.PlayerID, submitPitching.OpponentOfficialAtBats, submitPitching.OpponentHits, submitPitching.EarnedRunsScored, submitPitching.InningsPitched, submitPitching.StrikeOuts, submitPitching.HomeRuns, submitPitching.Walks, submitPitching.BattersHBP, submitPitching.PickOffAttempts, submitPitching.PickOffs, stats);
-                return RedirectToAction("Index", "PitchStats");
+                total.Create(submitPitching.PlayerID, submitPitching.CoachID, submitPitching.OpponentOfficialAtBats, submitPitching.OpponentHits, submitPitching.EarnedRunsScored, submitPitching.InningsPitched, submitPitching.StrikeOuts, submitPitching.HomeRuns, submitPitching.Walks, submitPitching.BattersHBP, submitPitching.PickOffAttempts, submitPitching.PickOffs, stats);
+                return RedirectToAction("Home", "Coaches");
            }
-           return RedirectToAction("Index", "PitchStats");
+           return RedirectToAction("Home", "Coaches");
         }
 
         // GET: SubmitPitchings/Edit/5

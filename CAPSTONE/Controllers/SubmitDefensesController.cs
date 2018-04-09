@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -40,7 +41,10 @@ namespace CAPSTONE.Controllers
         // GET: SubmitDefenses/Create
         public ActionResult Create()
         {
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName");
+            string user = User.Identity.GetUserId();
+            var userRow = from row in db.Coaches where row.UserId == user select row;
+            var first = userRow.FirstOrDefault();
+            ViewBag.PlayerID = new SelectList(db.Players.Where(o => o.CoachID == first.CoachID), "PlayerID", "FirstName");
             return View();
         }
 
@@ -49,7 +53,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GameID,PlayerID,Positions,Errors,InningsPlayed,PutOuts,Assists")] SubmitDefense submitDefense, TotalDefense totalDefense)
+        public ActionResult Create([Bind(Include = "GameID,PlayerID,CoachID,Positions,Errors,InningsPlayed,PutOuts,Assists")] SubmitDefense submitDefense, TotalDefense totalDefense)
         {
             TotalDefensesController total = new TotalDefensesController();
             SubmitPitchingsController pitch = new SubmitPitchingsController();
@@ -57,19 +61,23 @@ namespace CAPSTONE.Controllers
             //TotalPitching totalPitch = new TotalPitching();
             if (ModelState.IsValid)
             {
+                string user = User.Identity.GetUserId();
+                var coachRow = from row in db.Coaches where row.UserId == user select row;
+                var coachRowResult = coachRow.FirstOrDefault();
+                submitDefense.CoachID = coachRowResult.CoachID;
                 db.SubmitDefenses.Add(submitDefense);
                 db.SaveChanges();
                 foreach (var item in db.TotalDefenses)
                 {
                     if (item.Positions == submitDefense.Positions && item.PlayerID == submitDefense.PlayerID && submitDefense.Positions != 1)
                     {
-                        total.Edit(submitDefense.PlayerID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists);
+                        total.Edit(submitDefense.PlayerID,submitDefense.CoachID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists);
                         if (submitDefense.Positions == 1)
                         {
                             //pitch.Create(pitching, totalPitch);
                             return RedirectToAction("Create", "SubmitPitchings");
                         }
-                        return RedirectToAction("Index", "DefenseStats");
+                        return RedirectToAction("Home", "Coaches");
                     }
                     //else if (submitDefense.Positions == 1)
                     //{
@@ -77,15 +85,15 @@ namespace CAPSTONE.Controllers
                     //    return RedirectToAction("Create", "SubmitPitchings");
                     //}
                 }
-            total.Create(submitDefense.PlayerID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists, totalDefense);
+                total.Create(submitDefense.PlayerID, submitDefense.CoachID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists, totalDefense);
                 if (submitDefense.Positions == 1)
                 {
                     //pitch.Create(pitching, totalPitch);
                     return RedirectToAction("Create", "SubmitPitchings");
                 }
-            return RedirectToAction("Index", "DefenseStats");
+            return RedirectToAction("Home", "Coaches");
             }
-            return RedirectToAction("Index", "DefenseStats");
+            return RedirectToAction("Home", "Coaches");
             //ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", submitDefense.PlayerID);
             //return View(submitDefense);
         }

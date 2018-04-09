@@ -7,13 +7,13 @@ namespace CAPSTONE.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addedmigration : IMigrationMetadata
+    public sealed partial class startedoveragain : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedmigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(startedoveragain));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804052023144_added migration"; }
+            get { return "201804092101411_started over again"; }
         }
         
         string IMigrationMetadata.Source

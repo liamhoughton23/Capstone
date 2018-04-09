@@ -3,7 +3,7 @@ namespace CAPSTONE.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class startedoveragain : DbMigration
     {
         public override void Up()
         {
@@ -32,7 +32,7 @@ namespace CAPSTONE.Migrations
                         LastName = c.String(),
                         UserId = c.String(maxLength: 128),
                         PhoneNumber = c.String(),
-                        Code = c.String(nullable: false),
+                        Code = c.String(),
                     })
                 .PrimaryKey(t => t.CoachID)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
@@ -43,8 +43,9 @@ namespace CAPSTONE.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Code = c.String(nullable: false),
+                        Code = c.String(),
                         RoleName = c.String(),
+                        Member = c.Boolean(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -99,11 +100,21 @@ namespace CAPSTONE.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.TeamConfirms",
+                c => new
+                    {
+                        Key = c.Int(nullable: false, identity: true),
+                        Code = c.String(),
+                    })
+                .PrimaryKey(t => t.Key);
+            
+            CreateTable(
                 "dbo.DefenseStats",
                 c => new
                     {
                         Key = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         Position = c.Int(nullable: false),
                         IP = c.Int(nullable: false),
                         TC = c.Int(nullable: false),
@@ -126,7 +137,9 @@ namespace CAPSTONE.Migrations
                         CoachID = c.Int(nullable: false),
                         UserId = c.String(maxLength: 128),
                         PhoneNumber = c.String(),
-                        Code = c.String(nullable: false),
+                        Code = c.String(),
+                        Email = c.String(),
+                        Member = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.PlayerID)
                 .ForeignKey("dbo.Coaches", t => t.CoachID, cascadeDelete: true)
@@ -140,6 +153,7 @@ namespace CAPSTONE.Migrations
                     {
                         Game = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         PlateAppearances = c.Int(nullable: false),
                         Singles = c.Int(nullable: false),
                         Doubles = c.Int(nullable: false),
@@ -170,6 +184,7 @@ namespace CAPSTONE.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Position = c.Int(nullable: false),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Players", t => t.PlayerID, cascadeDelete: true)
@@ -195,6 +210,7 @@ namespace CAPSTONE.Migrations
                     {
                         Key = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         TotalPlateAppearances = c.Int(nullable: false),
                         OfficialAtBats = c.Int(nullable: false),
                         TotalHits = c.Int(nullable: false),
@@ -217,6 +233,7 @@ namespace CAPSTONE.Migrations
                     {
                         Key = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         EarnedRunAvereage = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OpponentBattingAverage = c.Decimal(nullable: false, precision: 18, scale: 2),
                         WHIP = c.Decimal(nullable: false, precision: 18, scale: 2),
@@ -247,6 +264,7 @@ namespace CAPSTONE.Migrations
                     {
                         GameID = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         Positions = c.Int(nullable: false),
                         Errors = c.Int(nullable: false),
                         InningsPlayed = c.Int(nullable: false),
@@ -263,6 +281,7 @@ namespace CAPSTONE.Migrations
                     {
                         Game = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         PlateAppearances = c.Int(nullable: false),
                         Singles = c.Int(nullable: false),
                         Doubles = c.Int(nullable: false),
@@ -292,6 +311,7 @@ namespace CAPSTONE.Migrations
                     {
                         GameID = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         OpponentOfficialAtBats = c.Int(nullable: false),
                         OpponentHits = c.Int(nullable: false),
                         EarnedRunsScored = c.Int(nullable: false),
@@ -313,6 +333,7 @@ namespace CAPSTONE.Migrations
                     {
                         GameID = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         Positions = c.Int(nullable: false),
                         Attempts = c.Int(nullable: false),
                         Errors = c.Int(nullable: false),
@@ -330,6 +351,7 @@ namespace CAPSTONE.Migrations
                     {
                         GameID = c.Int(nullable: false, identity: true),
                         PlayerID = c.Int(nullable: false),
+                        CoachID = c.Int(nullable: false),
                         OpponentOfficialAtBats = c.Int(nullable: false),
                         OpponentHits = c.Int(nullable: false),
                         EarnedRunsScored = c.Int(nullable: false),
@@ -398,6 +420,7 @@ namespace CAPSTONE.Migrations
             DropTable("dbo.TotalOffenses");
             DropTable("dbo.Players");
             DropTable("dbo.DefenseStats");
+            DropTable("dbo.TeamConfirms");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

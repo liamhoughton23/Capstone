@@ -19,6 +19,7 @@ namespace CAPSTONE.Models
         public virtual Player Player { get; set; }
    
 
+        public int CoachID { get; set; }
 
 
 

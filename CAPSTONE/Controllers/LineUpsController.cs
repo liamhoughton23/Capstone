@@ -24,8 +24,22 @@ namespace CAPSTONE.Controllers
         // GET: LineUps
         public ActionResult Index()
         {
-            var lineups = db.Lineups.Include(l => l.Player);
-            return View(lineups.ToList());
+            List<LineUp> lineUp = new List<LineUp>();
+            string user = User.Identity.GetUserId();
+            var coachRow = from row in db.Coaches where row.UserId == user select row;
+            var coachRowResult = coachRow.FirstOrDefault();
+            int coachID = coachRowResult.CoachID;
+            var playerRow = from row in db.Players where row.UserId == user select row;
+            var playerRowResult = coachRow.FirstOrDefault();
+            int playerCoachID = playerRowResult.CoachID;
+            foreach (var item in db.Lineups)
+            {
+                if (item.CoachID == coachID || item.CoachID == playerCoachID)
+                {
+                    lineUp.Add(item);
+                }
+            }
+            return View(lineUp);
         }
 
         // GET: LineUps/Details/5
@@ -46,7 +60,10 @@ namespace CAPSTONE.Controllers
         // GET: LineUps/Create
         public ActionResult Create()
         {
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName");
+            string user = User.Identity.GetUserId();
+            var userRow = from row in db.Coaches where row.UserId == user select row;
+            var first = userRow.FirstOrDefault();
+            ViewBag.PlayerID = new SelectList(db.Players.Where(o=>o.CoachID == first.CoachID), "PlayerID", "FirstName");        
             return View();
         }
 
@@ -55,10 +72,14 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Position,PlayerID")] LineUp lineUp)
+        public ActionResult Create([Bind(Include = "ID,Position,PlayerID,CoachID")] LineUp lineUp)
         {
             //if (ModelState.IsValid)
             //{
+                string sameUser = User.Identity.GetUserId();
+                var result = from row in db.Coaches where row.UserId == sameUser select row;
+                var resultToUser = result.FirstOrDefault();
+                lineUp.CoachID = resultToUser.CoachID;
                 db.Lineups.Add(lineUp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -150,7 +171,7 @@ namespace CAPSTONE.Controllers
                     message.recipient = item.PhoneNumber;
                     HelperClasses.Twilio twilio = new HelperClasses.Twilio();
                     twilio.Send(message, item.PhoneNumber);
-                    return View();
+                    
                 }
             }
             return View();

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -40,7 +41,10 @@ namespace CAPSTONE.Controllers
         // GET: SubmitOffenses/Create
         public ActionResult Create()
         {
-            ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName");
+            string user = User.Identity.GetUserId();
+            var userRow = from row in db.Coaches where row.UserId == user select row;
+            var first = userRow.FirstOrDefault();
+            ViewBag.PlayerID = new SelectList(db.Players.Where(o => o.CoachID == first.CoachID), "PlayerID", "FirstName");
             return View();
         }
 
@@ -49,11 +53,14 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Game,PlayerID,PlateAppearances,Singles,Doubles,Triples,HRs,Walks,HBP,Scrifices,OnByFeildersChoice,TotalBases,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] SubmitOffense subOffense, OffenseStats offenseStats, TotalOffense totalOff )
+        public ActionResult Create([Bind(Include = "Game,PlayerID,CoachID,PlateAppearances,Singles,Doubles,Triples,HRs,Walks,HBP,Scrifices,OnByFeildersChoice,TotalBases,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] SubmitOffense subOffense, OffenseStats offenseStats, TotalOffense totalOff )
         {
             if (ModelState.IsValid)
             {
-
+                string user = User.Identity.GetUserId();
+                var coachRow = from row in db.Coaches where row.UserId == user select row;
+                var coachRowResult = coachRow.FirstOrDefault();
+                subOffense.CoachID = coachRowResult.CoachID;
                 TotalOffensesController total = new TotalOffensesController();
                 MorphingTables morph = new MorphingTables();
                 OffenseStatsController off = new OffenseStatsController();
@@ -63,14 +70,14 @@ namespace CAPSTONE.Controllers
                 {
                     if(item.PlayerID == subOffense.PlayerID)
                     {
-                        total.Edit(subOffense.PlayerID, subOffense.PlateAppearances, subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs, subOffense.Walks, subOffense.HBP, subOffense.Scrifices, subOffense.OnByFeildersChoice, subOffense.TotalBases, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.StolenBases, subOffense.StolenBaseAttempts, subOffense.SO, subOffense.OtherBattingOuts, subOffense.RBIs, subOffense.RunsScored);
-                        return RedirectToAction("Create", "SubmitDefenses");
+                        total.Edit(subOffense.PlayerID, subOffense.CoachID, subOffense.PlateAppearances, subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs, subOffense.Walks, subOffense.HBP, subOffense.Scrifices, subOffense.OnByFeildersChoice, subOffense.TotalBases, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.StolenBases, subOffense.StolenBaseAttempts, subOffense.SO, subOffense.OtherBattingOuts, subOffense.RBIs, subOffense.RunsScored);
+                        return RedirectToAction("Home", "Coaches");
                     }                  
                 }
 
-                total.Create(subOffense.PlayerID, subOffense.PlateAppearances, subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs, subOffense.Walks, subOffense.HBP, subOffense.Scrifices, subOffense.OnByFeildersChoice, subOffense.TotalBases, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.StolenBases, subOffense.StolenBaseAttempts, subOffense.SO, subOffense.OtherBattingOuts, subOffense.RBIs, subOffense.RunsScored, totalOff);
-                off.Create(totalOff.PlayerID, totalOff.PlateAppearances, totalOff.Singles, totalOff.Doubles, totalOff.Triples, totalOff.HRs, totalOff.Walks, totalOff.HBP, totalOff.Scrifices, totalOff.OnByFeildersChoice, totalOff.TotalBases, totalOff.OnByInterference, totalOff.DroppedThirdStrike, totalOff.StolenBases, totalOff.StolenBaseAttempts, totalOff.SO, totalOff.OtherBattingOuts, totalOff.RBIs, totalOff.RunsScored);      
-                return RedirectToAction("Create", "SubmitDefenses");
+                total.Create(subOffense.PlayerID, subOffense.CoachID, subOffense.PlateAppearances, subOffense.Singles, subOffense.Doubles, subOffense.Triples, subOffense.HRs, subOffense.Walks, subOffense.HBP, subOffense.Scrifices, subOffense.OnByFeildersChoice, subOffense.TotalBases, subOffense.OnByInterference, subOffense.DroppedThirdStrike, subOffense.StolenBases, subOffense.StolenBaseAttempts, subOffense.SO, subOffense.OtherBattingOuts, subOffense.RBIs, subOffense.RunsScored, totalOff);
+                off.Create(totalOff.PlayerID, totalOff.CoachID, totalOff.PlateAppearances, totalOff.Singles, totalOff.Doubles, totalOff.Triples, totalOff.HRs, totalOff.Walks, totalOff.HBP, totalOff.Scrifices, totalOff.OnByFeildersChoice, totalOff.TotalBases, totalOff.OnByInterference, totalOff.DroppedThirdStrike, totalOff.StolenBases, totalOff.StolenBaseAttempts, totalOff.SO, totalOff.OtherBattingOuts, totalOff.RBIs, totalOff.RunsScored);      
+                return RedirectToAction("Home", "Coaches");
             }
 
             ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", subOffense.PlayerID);

@@ -29,7 +29,7 @@ namespace CAPSTONE.Controllers
                 var coachRowResult = coachRow.FirstOrDefault();
                 int coachID = coachRowResult.CoachID;
                 var playerRow = from row in db.Players where row.UserId == user select row;
-                var playerRowResult = coachRow.FirstOrDefault();
+                var playerRowResult = playerRow.FirstOrDefault();
                 int playerCoachID = playerRowResult.CoachID;
                         foreach (var item in db.Calendar)
                         {

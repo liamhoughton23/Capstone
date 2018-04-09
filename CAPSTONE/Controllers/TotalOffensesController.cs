@@ -38,9 +38,10 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: GameOffenses/Create
-        public void Create(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored, TotalOffense stats)
+        public void Create(int PlayerID, int CoachID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored, TotalOffense stats)
         {
             stats.PlayerID = PlayerID;
+            stats.CoachID = CoachID;
             stats.PlateAppearances = PlateAppearances;
             stats.Singles = Singles;
             stats.Doubles = Doubles;
@@ -68,7 +69,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Game,PlayerID,PlateAppearances,Singles,Doubles,Triples,HRs,TotalBases,Walks,HBP,Scrifices,OnByFeildersChoice,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] TotalOffense totalOffense)
+        public ActionResult Create([Bind(Include = "Game,PlayerID,CoachID,PlateAppearances,Singles,Doubles,Triples,HRs,TotalBases,Walks,HBP,Scrifices,OnByFeildersChoice,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] TotalOffense totalOffense)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +83,7 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: GameOffenses/Edit/5
-        public ActionResult Edit(int PlayerID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
+        public ActionResult Edit(int PlayerID, int CoachID, int PlateAppearances, int Singles, int Doubles, int Triples, int HRs, int Walks, int HBP, int Scrifices, int OnByFeildersChoice, int TotalBases, int OnByInterference, int DroppedThirdStrike, int StolenBases, int StolenBaseAttempts, int SO, int OtherBattingOuts, int RBIs, int RunsScored)
         {
             //if (id == null)
             //{
@@ -96,6 +97,7 @@ namespace CAPSTONE.Controllers
             MorphingTables morph = new MorphingTables();
             var result = from row in db.GameOffenses where row.PlayerID == PlayerID select row;
             var resultToUser = result.FirstOrDefault();
+            resultToUser.CoachID = CoachID;
             resultToUser.PlayerID = PlayerID;
             resultToUser.PlateAppearances = morph.AddingStats(PlateAppearances, resultToUser.PlateAppearances);
             resultToUser.Singles = morph.AddingStats(Singles, resultToUser.Singles);
@@ -118,7 +120,7 @@ namespace CAPSTONE.Controllers
             db.Entry(resultToUser).State = EntityState.Modified;
             db.SaveChanges();
             OffenseStatsController newStats = new OffenseStatsController();
-            newStats.Edit(resultToUser.PlayerID, resultToUser.PlateAppearances, resultToUser.Singles, resultToUser.Doubles, resultToUser.Triples, resultToUser.HRs, resultToUser.Walks, resultToUser.HBP, resultToUser.Scrifices, resultToUser.OnByFeildersChoice, resultToUser.TotalBases, resultToUser.OnByInterference, resultToUser.DroppedThirdStrike, resultToUser.StolenBases, resultToUser.StolenBaseAttempts, resultToUser.SO, resultToUser.OtherBattingOuts, resultToUser.RBIs, resultToUser.RunsScored);
+            newStats.Edit(resultToUser.PlayerID, resultToUser.CoachID, resultToUser.PlateAppearances, resultToUser.Singles, resultToUser.Doubles, resultToUser.Triples, resultToUser.HRs, resultToUser.Walks, resultToUser.HBP, resultToUser.Scrifices, resultToUser.OnByFeildersChoice, resultToUser.TotalBases, resultToUser.OnByInterference, resultToUser.DroppedThirdStrike, resultToUser.StolenBases, resultToUser.StolenBaseAttempts, resultToUser.SO, resultToUser.OtherBattingOuts, resultToUser.RBIs, resultToUser.RunsScored);
             return View();
         }
 
@@ -127,7 +129,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Game,PlayerID,PlateAppearances,Singles,Doubles,Triples,HRs,TotalBases,Walks,HBP,Scrifices,OnByFeildersChoice,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] TotalOffense gameOffense)
+        public ActionResult Edit([Bind(Include = "Game,PlayerID,CoachID,PlateAppearances,Singles,Doubles,Triples,HRs,TotalBases,Walks,HBP,Scrifices,OnByFeildersChoice,OnByInterference,DroppedThirdStrike,StolenBases,StolenBaseAttempts,SO,OtherBattingOuts,RBIs,RunsScored")] TotalOffense gameOffense)
         {
             if (ModelState.IsValid)
             {

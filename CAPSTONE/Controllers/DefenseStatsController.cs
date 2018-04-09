@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -38,11 +39,12 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: DefenseStats/Create
-        public void Create(int playerID, int position, int errors, int inningsPlayed, int putOuts, int assists)
+        public void Create(int playerID, int CoachID, int position, int errors, int inningsPlayed, int putOuts, int assists)
         {
             DefenseHelpers helpers = new DefenseHelpers();
             MorphingTables morph = new MorphingTables();
             defenseStats.PlayerID = playerID;
+            defenseStats.CoachID = CoachID;
             defenseStats.Position = position;
             defenseStats.Errors = errors;
             defenseStats.IP = inningsPlayed;
@@ -58,7 +60,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Key,PlayerID,Positions,IP,TC,PO,Assists,Errors,FPCT")] DefenseStats defenseStats)
+        public ActionResult Create([Bind(Include = "Key,PlayerID,CoachID,Positions,IP,TC,PO,Assists,Errors,FPCT")] DefenseStats defenseStats)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +74,7 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: DefenseStats/Edit/5
-        public void Edit(int playerID, int position, int errors, int inningsPlayed, int putOuts, int assists)
+        public void Edit(int playerID, int CoachId, int position, int errors, int inningsPlayed, int putOuts, int assists)
         {
             //if (id == null)
             //{
@@ -88,6 +90,7 @@ namespace CAPSTONE.Controllers
             var result = from row in db.Defense where row.PlayerID == playerID select row;
             var resultToUser = result.FirstOrDefault();
             resultToUser.PlayerID = playerID;
+            resultToUser.CoachID = CoachId;
             resultToUser.Position = position;
             resultToUser.Errors = errors;
             resultToUser.IP = inningsPlayed;
@@ -104,10 +107,11 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Key,PlayerID,Positions,Games,IP,TC,PO,Assists,Errors,FPCT")] DefenseStats defenseStats)
+        public ActionResult Edit([Bind(Include = "Key,PlayerID,CoachID,Positions,Games,IP,TC,PO,Assists,Errors,FPCT,CoachID")] DefenseStats defenseStats)
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(defenseStats).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

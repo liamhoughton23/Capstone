@@ -11,16 +11,10 @@
 
 <div id="calendar"></div>
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Registering Players</h2>
-        <p>Click the btton to register all of your players</p>
-        <input type="button" value="Register Players" onclick="location.href='@Url.Action("Register", "Account", new { id = Model.Id })'" class="btn btn-default" />
-    </div>
     <div class="col-md-3">
         <h2>Playing Games</h2>
         <p>Click Here to play the game that is coming up</p>
-        <input type="button" value="Submit Data" onclick="location.href='@Url.Action("Create", "SubmitOffenses", new { id = Model.Id })'" class="btn btn-default" />
+        <input type="submit" value="See Data" onclick="location.href='@Url.Action("WhichStat", "Players", new { id = Model.Id })'" class="btn btn-default" />
     </div>
     <div class="col-md-3">
         <h2></h2>
@@ -30,11 +24,11 @@
     <div class="col-md-3">
         <h2></h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <input type="button" value="Schedule Events" onclick="location.href='@Url.Action("Create", "LineUps", new { id = Model.Id })'" class="btn btn-default" />
+        <input type="button" value="See Line Up" onclick="location.href='@Url.Action("LineUp", "Players", new { id = Model.Id })'" class="btn btn-default" />
     </div>
     <div class="col-md-3">
         <h2></h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <input type="button" value="Schedule Events" onclick="location.href='@Url.Action("Create", "Locations", new { id = Model.Id })'" class="btn btn-default" />
+        <input type="button" value="Find Locations" onclick="location.href='@Url.Action("Create", "Locations", new { id = Model.Id })'" class="btn btn-default" />
     </div>
-</div>
+

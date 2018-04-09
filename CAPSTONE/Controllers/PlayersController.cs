@@ -140,5 +140,73 @@ namespace CAPSTONE.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult PlayerDefense()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Players where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            var stats = from row in db.Defense where row.PlayerID == firstResult.PlayerID select row;
+            var statsFirst = stats.FirstOrDefault();
+            foreach(var item in db.Defense)
+            {
+                if (item.PlayerID == statsFirst.PlayerID)
+                {
+                    defense.Add(item);
+                }
+            }
+            return View(defense);
+        }
+
+        public ActionResult WhichStat()
+        {
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Players where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            if (firstResult.Member == false)
+            {
+                return RedirectToAction("Create", "TeamConfirms");
+            }
+            return View(firstResult);
+        }
+
+        public ActionResult Home()
+        {
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Users where row.Id == sameUser select row;
+            var resultToUser = result.FirstOrDefault();
+            return View(resultToUser);
+        }
+
+        public ActionResult PlayerOffense()
+        {
+            List<OffenseStats> offense = new List<OffenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Players where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            var stats = from row in db.Offense where row.PlayerID == firstResult.PlayerID select row;
+            var statsFirst = stats.FirstOrDefault();
+            foreach (var item in db.Offense)
+            {
+                if (item.PlayerID == statsFirst.PlayerID)
+                {
+                    offense.Add(item);
+                }
+            }
+
+
+            return View(offense);
+        }
+
+        public ActionResult PlayerPitch()
+        {
+            return View();
+        }
+
+        public ActionResult LineUp()
+        {
+            return View();
+        }
     }
 }

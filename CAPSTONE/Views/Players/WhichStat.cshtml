@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "WhichStat";
+}
+
+<h2>WhichStat</h2>
+
+<div class="col-md-3">
+    <input type="button" value="Offense Stats" onclick="location.href='@Url.Action("PlayerOffense", "Players")'" class="btn btn-default" />
+</div>
+
+<div class="col-md-3">
+    <input type="button" value="Defense Stats" onclick="location.href='@Url.Action("PlayerDefense", "Players")'" class="btn btn-default" />
+</div>
+
+<div class="col-md-3">
+    <input type="button" value="Pitch Stats" onclick="location.href='@Url.Action("PlayerPitch", "Players")'" class="btn btn-default" />
+</div>
+
+<div class="col-md-3">
+    <input type="button" value="Offense Stats" onclick="location.href='@Url.Action("OffenseGraph", "Players")'" class="btn btn-default" />
+</div>

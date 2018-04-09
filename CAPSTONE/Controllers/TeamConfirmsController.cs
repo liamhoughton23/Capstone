@@ -34,14 +34,14 @@ namespace CAPSTONE.Controllers
                 db.Code.Add(teamConfirm);
                 db.SaveChanges();
                 string user = User.Identity.GetUserId();
-                var userRow = from row in db.Users where row.Id == user select row;
+                var userRow = from row in db.Players where row.UserId == user select row;
                 var userRowResult = userRow.FirstOrDefault();
-                var lastCodeEntry = db.Code.LastOrDefault();
-                if (lastCodeEntry.Code == userRowResult.Code)
+                string lastCode = (from n in db.Code orderby n.Code descending select n.Code).FirstOrDefault();
+                if (lastCode == userRowResult.Code)
                 {
                     userRowResult.Member = true;
                     db.SaveChanges();
-                    return RedirectToAction("Home", "Players");
+                    return RedirectToAction("WhichStat", "Players");
                 }
                 return View(teamConfirm);
             }

@@ -38,9 +38,10 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: TotalDefenses/Create
-        public void Create(int playerID, int position, int errors, int inningsPlayed, int putOuts, int assists, TotalDefense totalDefense)
+        public void Create(int playerID, int CoachId, int position, int errors, int inningsPlayed, int putOuts, int assists, TotalDefense totalDefense)
         {
             totalDefense.PlayerID = playerID;
+            totalDefense.CoachID = CoachId;
             totalDefense.Positions = position;
             totalDefense.Errors = errors;
             totalDefense.InningsPlayed = inningsPlayed;
@@ -49,7 +50,7 @@ namespace CAPSTONE.Controllers
             db.TotalDefenses.Add(totalDefense);
             db.SaveChanges();
             DefenseStatsController newStats = new DefenseStatsController();
-            newStats.Create(totalDefense.PlayerID, totalDefense.Positions, totalDefense.Errors, totalDefense.InningsPlayed, totalDefense.PutOuts, totalDefense.Assists);
+            newStats.Create(totalDefense.PlayerID, totalDefense.CoachID, totalDefense.Positions, totalDefense.Errors, totalDefense.InningsPlayed, totalDefense.PutOuts, totalDefense.Assists);
         }
 
         // POST: TotalDefenses/Create
@@ -57,7 +58,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GameID,PlayerID,Positions,Attempts,Errors,InningsPlayed,PutOuts,Assists")] TotalDefense totalDefense)
+        public ActionResult Create([Bind(Include = "GameID,PlayerID,CoachID,Positions,Attempts,Errors,InningsPlayed,PutOuts,Assists")] TotalDefense totalDefense)
         {
             if (ModelState.IsValid)
             {
@@ -71,12 +72,13 @@ namespace CAPSTONE.Controllers
         }
 
         // GET: TotalDefenses/Edit/5
-        public void Edit(int playerID, int position, int errors, int inningsPlayed, int putOuts, int assists)
+        public void Edit(int playerID, int CoachID, int position, int errors, int inningsPlayed, int putOuts, int assists)
         {
             MorphingTables morph = new MorphingTables();
             var result = from row in db.TotalDefenses where row.PlayerID == playerID select row;
             var resultToUser = result.FirstOrDefault();
             resultToUser.PlayerID = playerID;
+            resultToUser.CoachID = CoachID;
             resultToUser.Positions = position;
             resultToUser.Errors = morph.AddingStats(resultToUser.Errors, errors);
             resultToUser.InningsPlayed = morph.AddingStats(resultToUser.InningsPlayed, inningsPlayed);
@@ -85,7 +87,7 @@ namespace CAPSTONE.Controllers
             db.Entry(resultToUser).State = EntityState.Modified;
             db.SaveChanges();
             DefenseStatsController newStats = new DefenseStatsController();
-            newStats.Edit(resultToUser.PlayerID, resultToUser.Positions, resultToUser.Errors, resultToUser.InningsPlayed, resultToUser.PutOuts, resultToUser.Assists);
+            newStats.Edit(resultToUser.PlayerID, resultToUser.CoachID, resultToUser.Positions, resultToUser.Errors, resultToUser.InningsPlayed, resultToUser.PutOuts, resultToUser.Assists);
         }
 
         // POST: TotalDefenses/Edit/5
@@ -93,7 +95,7 @@ namespace CAPSTONE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GameID,PlayerID,Positions,Errors,InningsPlayed,PutOuts,Assists")] TotalDefense totalDefense)
+        public ActionResult Edit([Bind(Include = "GameID,PlayerID,CoachID,Positions,Errors,InningsPlayed,PutOuts,Assists")] TotalDefense totalDefense)
         {
             if (ModelState.IsValid)
             {

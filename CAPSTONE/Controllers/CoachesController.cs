@@ -166,19 +166,50 @@ namespace CAPSTONE.Controllers
             return stringCode;
         }
 
-        //List<Calendar> newList = new List<Calendar>();
-        //string user = User.Identity.GetUserId();
-        //int realUser = Convert.ToInt32(user);
-        //var result = from row in db.Calendar where row.CoachID == realUser select row;
-        //var resultToUser = result.FirstOrDefault();
-        //int compareIDs = resultToUser.CoachID;
-        //        foreach (var item in db.Calendar)
-        //        {
-        //            if(item.CoachID == CoachID)
-        //            {
+        public ActionResult EnterStats()
+        {
+            return View();
+        }
 
-        //            }
-        //        }
+        public ActionResult ChoseStats()
+        {
+            return View();
+        }
+
+        public ActionResult OffStats()
+        {
+            List<OffenseStats> offense = new List<OffenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            //var stats = from row in db.Offense where row.CoachID == firstResult.CoachID select row;
+            //var statsFirst = stats.FirstOrDefault();
+            foreach (var item in db.Offense)
+            {
+                if (item.CoachID == firstResult.CoachID)
+                {
+                    offense.Add(item);
+                }
+            }
+            return View(offense);
+        }
+
+        public ActionResult DefStats()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID)
+                {
+                    defense.Add(item);
+                }
+            }
+            return View(defense);
+        }
+
 
     }
 }
