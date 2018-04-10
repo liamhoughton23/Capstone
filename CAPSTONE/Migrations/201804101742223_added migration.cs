@@ -3,7 +3,7 @@ namespace CAPSTONE.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class startedoveragain : DbMigration
+    public partial class addedmigration : DbMigration
     {
         public override void Up()
         {

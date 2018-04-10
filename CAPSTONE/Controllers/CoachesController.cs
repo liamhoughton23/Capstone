@@ -194,7 +194,7 @@ namespace CAPSTONE.Controllers
             return View(offense);
         }
 
-        public ActionResult DefStats()
+        public ActionResult Pitcher()
         {
             List<DefenseStats> defense = new List<DefenseStats>();
             string sameUser = User.Identity.GetUserId();
@@ -202,13 +202,150 @@ namespace CAPSTONE.Controllers
             var firstResult = result.FirstOrDefault();
             foreach (var item in db.Defense)
             {
-                if (item.CoachID == firstResult.CoachID)
+                if (item.CoachID == firstResult.CoachID && item.Position == 1)
                 {
                     defense.Add(item);
                 }
             }
-            return View(defense);
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
         }
+
+        public ActionResult Catcher()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 2)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
+        public ActionResult First()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 3)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
+        public ActionResult Second()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 4)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+        public ActionResult Third()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 5)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
+        public ActionResult Short()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 6)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
+        public ActionResult Left()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 7)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
+        public ActionResult Center()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 8)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
+        public ActionResult Right()
+        {
+            List<DefenseStats> defense = new List<DefenseStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Defense)
+            {
+                if (item.CoachID == firstResult.CoachID && item.Position == 9)
+                {
+                    defense.Add(item);
+                }
+            }
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            return View(sortedList);
+        }
+
 
 
     }

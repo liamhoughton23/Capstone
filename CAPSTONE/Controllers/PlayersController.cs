@@ -18,8 +18,18 @@ namespace CAPSTONE.Controllers
         // GET: Players
         public ActionResult Index()
         {
-            var players = db.Players.Include(p => p.Coach);
-            return View(players.ToList());
+            List<Player> player = new List<Player>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Players)
+            {
+                if (item.CoachID == firstResult.CoachID)
+                {
+                    player.Add(item);
+                }
+            }
+            return View(player);
         }
 
         // GET: Players/Details/5
@@ -70,7 +80,7 @@ namespace CAPSTONE.Controllers
             //player.Code = coachRowResult.Code;
             //db.Entry(player).State = EntityState.Modified;
             //db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Players/Edit/5
@@ -156,6 +166,7 @@ namespace CAPSTONE.Controllers
                     defense.Add(item);
                 }
             }
+            
             return View(defense);
         }
 
