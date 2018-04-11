@@ -212,12 +212,37 @@ namespace CAPSTONE.Controllers
 
         public ActionResult PlayerPitch()
         {
-            return View();
+            List<PitchStats> pitch = new List<PitchStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Players where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.PitchStats)
+            {
+                if (item.PlayerID == firstResult.PlayerID)
+                {
+                    pitch.Add(item);
+                }
+            }
+
+
+            return View(pitch);
         }
 
         public ActionResult LineUp()
         {
-            return View();
+            List<LineUp> lineUp = new List<LineUp>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Players where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.Lineups)
+            {
+                if (item.PlayerID == firstResult.PlayerID)
+                {
+                    lineUp.Add(item);
+                }
+            }
+
+            return View(lineUp);
         }
     }
 }

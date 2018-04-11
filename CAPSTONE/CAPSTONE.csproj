@@ -308,6 +308,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactCoach.cs" />
     <Compile Include="Models\DefenseStats.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TeamConfirm.cs" />
@@ -601,6 +602,10 @@
     <Content Include="Views\Coaches\Left.cshtml" />
     <Content Include="Views\Coaches\Center.cshtml" />
     <Content Include="Views\Coaches\Right.cshtml" />
+    <Content Include="Views\Coaches\DefStats.cshtml" />
+    <Content Include="Views\OffenseStats\Graph.cshtml" />
+    <Content Include="Views\OffenseStats\BarChart.cshtml" />
+    <Content Include="Views\Calendar\PlayerCalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

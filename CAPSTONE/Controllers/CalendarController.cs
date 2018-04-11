@@ -18,6 +18,11 @@ namespace CAPSTONE.Controllers
             return View();
         }
 
+        public ActionResult  PlayerCalendar()
+        {
+            return View();
+        }
+
         public JsonResult GetEvents()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -28,16 +33,41 @@ namespace CAPSTONE.Controllers
                 var coachRow = from row in db.Coaches where row.UserId == user select row;
                 var coachRowResult = coachRow.FirstOrDefault();
                 int coachID = coachRowResult.CoachID;
-                var playerRow = from row in db.Players where row.UserId == user select row;
-                var playerRowResult = playerRow.FirstOrDefault();
-                int playerCoachID = playerRowResult.CoachID;
+                //var playerRow = from row in db.Players where row.UserId == user select row;
+                //var playerRowResult = playerRow.FirstOrDefault();
+                //int playerCoachID = playerRowResult.CoachID;
                         foreach (var item in db.Calendar)
                         {
-                            if(item.CoachID == coachID || item.CoachID == playerCoachID)
+                            if(item.CoachID == coachID)
                               {
                                   newList.Add(item);
                               }
                         }
+
+                return new JsonResult { Data = newList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+        public JsonResult GetEventsPlayer()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<Calendar> newList = new List<Calendar>();
+
+                string user = User.Identity.GetUserId();
+                //var coachRow = from row in db.Coaches where row.UserId == user select row;
+                //var coachRowResult = coachRow.FirstOrDefault();
+                //int coachID = coachRowResult.CoachID;
+                var playerRow = from row in db.Players where row.UserId == user select row;
+                var playerRowResult = playerRow.FirstOrDefault();
+                int playerCoachID = playerRowResult.CoachID;
+                foreach (var item in db.Calendar)
+                {
+                    if (item.CoachID == playerCoachID)
+                    {
+                        newList.Add(item);
+                    }
+                }
 
                 return new JsonResult { Data = newList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }

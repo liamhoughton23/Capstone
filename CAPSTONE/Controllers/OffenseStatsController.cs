@@ -24,6 +24,41 @@ namespace CAPSTONE.Controllers
             return View(offense.ToList());
         }
 
+        public ActionResult Graph()
+        {
+            return View();
+        }
+
+        public ActionResult BarChart()
+        {
+            return View();
+        }
+
+        public JsonResult OffensiveStats()
+        {
+            List<OffenseStats> items = new List<OffenseStats>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+
+                string user = User.Identity.GetUserId();
+                var coachRow = from row in db.Coaches where row.UserId == user select row;
+                var coachRowResult = coachRow.FirstOrDefault();
+                int coachID = coachRowResult.CoachID;
+                //var playerRow = from row in db.Players where row.UserId == user select row;
+                //var playerRowResult = playerRow.FirstOrDefault();
+                //int playerCoachID = playerRowResult.CoachID;
+                foreach (var item in db.Offense)
+                {
+                    if (item.CoachID == coachID)
+                    {
+                        items.Add(item);
+                    }
+                }
+
+            }
+            return new JsonResult { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         // GET: OffenseStats/Details/5
         public ActionResult Details(int? id)
         {

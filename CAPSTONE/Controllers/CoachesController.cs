@@ -154,14 +154,7 @@ namespace CAPSTONE.Controllers
         {
             Random rand = new Random();
             int firstNumber = rand.Next(1000, 9999);
-            //int secondNumber = rand.Next(0, 9);
-            //int thirdNumber = rand.Next(0, 9);
-            //int fourthNumber = rand.Next(0, 9);
-            //int[] code = new int[4];
-            //code[0] = firstNumber;
-            //code[1] = secondNumber;
-            //code[2] = thirdNumber;
-            //code[3] = fourthNumber;
+
             string stringCode = firstNumber.ToString();
             return stringCode;
         }
@@ -176,14 +169,28 @@ namespace CAPSTONE.Controllers
             return View();
         }
 
+        public ActionResult PitchStats()
+        {
+            List<PitchStats> pitch = new List<PitchStats>();
+            string sameUser = User.Identity.GetUserId();
+            var result = from row in db.Coaches where row.UserId == sameUser select row;
+            var firstResult = result.FirstOrDefault();
+            foreach (var item in db.PitchStats)
+            {
+                if (item.CoachID == firstResult.CoachID)
+                {
+                    pitch.Add(item);
+                }
+            }
+            return View(pitch);
+        }
+
         public ActionResult OffStats()
         {
             List<OffenseStats> offense = new List<OffenseStats>();
             string sameUser = User.Identity.GetUserId();
             var result = from row in db.Coaches where row.UserId == sameUser select row;
             var firstResult = result.FirstOrDefault();
-            //var stats = from row in db.Offense where row.CoachID == firstResult.CoachID select row;
-            //var statsFirst = stats.FirstOrDefault();
             foreach (var item in db.Offense)
             {
                 if (item.CoachID == firstResult.CoachID)
@@ -344,6 +351,11 @@ namespace CAPSTONE.Controllers
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
             return View(sortedList);
+        }
+
+        public ActionResult DefStats()
+        {
+            return View();
         }
 
 

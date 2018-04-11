@@ -49,6 +49,7 @@ namespace CAPSTONE.Controllers
             defenseStats.Errors = errors;
             defenseStats.IP = inningsPlayed;
             defenseStats.PO = putOuts;
+            defenseStats.Assists = assists;
             defenseStats.TC = helpers.TotalChances(assists, putOuts, errors);
             defenseStats.FPCT = helpers.FPCT(putOuts, assists, errors);
             db.Defense.Add(defenseStats);
@@ -93,6 +94,7 @@ namespace CAPSTONE.Controllers
             resultToUser.CoachID = CoachId;
             resultToUser.Position = position;
             resultToUser.Errors = errors;
+            resultToUser.Assists = assists;
             resultToUser.IP = inningsPlayed;
             resultToUser.PO = putOuts;
             resultToUser.TC = helpers.TotalChances(assists, putOuts, errors);
