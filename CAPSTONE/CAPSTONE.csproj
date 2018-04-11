@@ -273,6 +273,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CoachesController.cs" />
+    <Compile Include="Controllers\ContactCoachesController.cs" />
+    <Compile Include="Controllers\ContactPlayersController.cs" />
     <Compile Include="Controllers\DefenseStatsController.cs" />
     <Compile Include="Controllers\LineUpsController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
@@ -302,13 +304,14 @@
     <Compile Include="HelperClasses\OffenseHelpers.cs" />
     <Compile Include="HelperClasses\PitchingHelpers.cs" />
     <Compile Include="HelperClasses\Twilio.cs" />
-    <Compile Include="Migrations\201804101742223_added migration.cs" />
-    <Compile Include="Migrations\201804101742223_added migration.Designer.cs">
-      <DependentUpon>201804101742223_added migration.cs</DependentUpon>
+    <Compile Include="Migrations\201804110544156_work.cs" />
+    <Compile Include="Migrations\201804110544156_work.Designer.cs">
+      <DependentUpon>201804110544156_work.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ContactCoach.cs" />
+    <Compile Include="Models\ContactPlayer.cs" />
     <Compile Include="Models\DefenseStats.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TeamConfirm.cs" />
@@ -606,6 +609,13 @@
     <Content Include="Views\OffenseStats\Graph.cshtml" />
     <Content Include="Views\OffenseStats\BarChart.cshtml" />
     <Content Include="Views\Calendar\PlayerCalendar.cshtml" />
+    <Content Include="Views\ContactCoaches\Create.cshtml" />
+    <Content Include="Views\ContactCoaches\Index.cshtml" />
+    <Content Include="Views\ContactPlayers\Create.cshtml" />
+    <Content Include="Views\ContactPlayers\Delete.cshtml" />
+    <Content Include="Views\ContactPlayers\Details.cshtml" />
+    <Content Include="Views\ContactPlayers\Edit.cshtml" />
+    <Content Include="Views\ContactPlayers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -620,8 +630,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804101742223_added migration.resx">
-      <DependentUpon>201804101742223_added migration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804110544156_work.resx">
+      <DependentUpon>201804110544156_work.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

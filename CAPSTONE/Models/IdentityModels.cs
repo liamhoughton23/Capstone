@@ -77,5 +77,9 @@ namespace CAPSTONE.Models
        public DbSet<Location> Location { get; set; }
 
         public DbSet<TeamConfirm> Code { get; set; }
+
+        public System.Data.Entity.DbSet<CAPSTONE.Models.ContactCoach> ContactCoaches { get; set; }
+
+        public System.Data.Entity.DbSet<CAPSTONE.Models.ContactPlayer> ContactPlayers { get; set; }
     }
 }

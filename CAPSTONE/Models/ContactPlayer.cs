@@ -7,7 +7,7 @@ using System.Web;
 
 namespace CAPSTONE.Models
 {
-    public class ContactCoach
+    public class ContactPlayer
     {
         [Key]
         public int Key { get; set; }
@@ -15,10 +15,10 @@ namespace CAPSTONE.Models
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
 
-        //public int Coach { get; set; }
+        public int PlayerID { get; set; }
+        [ForeignKey("PlayerID")]
+        public virtual Player Player { get; set; }
 
         public string PhoneNumber { get; set; }
-
-
     }
 }
