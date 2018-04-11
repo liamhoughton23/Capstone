@@ -616,6 +616,7 @@
     <Content Include="Views\ContactPlayers\Details.cshtml" />
     <Content Include="Views\ContactPlayers\Edit.cshtml" />
     <Content Include="Views\ContactPlayers\Index.cshtml" />
+    <Content Include="Views\Locations\SecondIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

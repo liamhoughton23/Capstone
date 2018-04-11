@@ -4,12 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Offesnsive Stats</h2>
+
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table id="edit" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Player.FirstName)
@@ -87,3 +89,8 @@
     }
 
 </table>
+
+
+<div class="row">
+    <input type="button" value="Back to Home" class="btn-default" onclick="location.href='@Url.Action("Home", "Players")'" />
+</div>

@@ -4,11 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Line Up</h2>
 <table class="table">
     <tr>
         <th>
@@ -34,5 +30,8 @@
 
 </table>
 
+<div class="row">
+    <input type="button" value="Back to Home" class="btn-default" onclick="location.href='@Url.Action("Home", "Players")'" />
+</div>
 
-<a href="/LineUps/SentText" class="Button">Submit LineUp</a>
+

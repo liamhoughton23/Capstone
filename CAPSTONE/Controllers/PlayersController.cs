@@ -15,6 +15,14 @@ namespace CAPSTONE.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+
+        public ActionResult LocationIndex()
+        {
+            return View();
+        }
+
+
         // GET: Players
         public ActionResult Index()
         {
@@ -166,8 +174,10 @@ namespace CAPSTONE.Controllers
                     defense.Add(item);
                 }
             }
-            
-            return View(defense);
+            List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
+
+            return View(sortedList);
         }
 
         public ActionResult WhichStat()
@@ -196,19 +206,17 @@ namespace CAPSTONE.Controllers
             string sameUser = User.Identity.GetUserId();
             var result = from row in db.Players where row.UserId == sameUser select row;
             var firstResult = result.FirstOrDefault();
-            var stats = from row in db.Offense where row.PlayerID == firstResult.PlayerID select row;
-            var statsFirst = stats.FirstOrDefault();
             foreach (var item in db.Offense)
             {
-                if (item.PlayerID == statsFirst.PlayerID)
+                if (item.CoachID == firstResult.CoachID)
                 {
                     offense.Add(item);
                 }
             }
-
-
-            return View(offense);
-        }
+            List<OffenseStats> sortedList = offense.OrderBy(p => p.BA).ToList();
+            sortedList.Reverse();
+            return View(sortedList);
+    }
 
         public ActionResult PlayerPitch()
         {

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CAPSTONE.Models.Location>
+﻿
+@model IEnumerable<CAPSTONE.Models.Location>
 
 @{
     ViewBag.Title = "Index";
@@ -47,9 +48,9 @@
             map: map
         });
 
-         
+
         calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
-           
+
             //catch(Exception){
             //        alert('Failed');
             //    }
@@ -83,6 +84,5 @@
 </script>
 
 <div class="row">
-    <input type="button" value="Back to Home" class="btn-default" onclick="location.href='@Url.Action("Home", "Coaches")'" />
+    <input type="button" value="Back to Home" class="btn-default" onclick="location.href='@Url.Action("Home", "Players")'" />
 </div>
-

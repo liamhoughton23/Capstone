@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
+using Microsoft.AspNet.Identity;
 
 namespace CAPSTONE.Controllers
 {
@@ -17,6 +18,11 @@ namespace CAPSTONE.Controllers
 
         // GET: Locations
         public ActionResult Index()
+        {
+            return View(db.Location.ToList());
+        }
+
+        public ActionResult SecondIndex()
         {
             return View(db.Location.ToList());
         }
@@ -64,6 +70,13 @@ namespace CAPSTONE.Controllers
                 location.Longitude2 = secondLatLong[1];
                 db.Entry(location).State = EntityState.Modified;
                 db.SaveChanges();
+                string user = User.Identity.GetUserId();
+                var result = from row in db.Coaches where row.UserId == user select row;
+                var rowResult = result.FirstOrDefault();
+                if(rowResult == null)
+                {
+                    return RedirectToAction("SecondIndex");
+                }
                 return RedirectToAction("Index");
             }
 

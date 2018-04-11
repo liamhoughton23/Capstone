@@ -182,7 +182,9 @@ namespace CAPSTONE.Controllers
                     pitch.Add(item);
                 }
             }
-            return View(pitch);
+            List<PitchStats> sortedList = pitch.OrderBy(p => p.EarnedRunAvereage).ToList();
+            sortedList.Reverse();
+            return View(sortedList);
         }
 
         public ActionResult OffStats()
@@ -198,7 +200,9 @@ namespace CAPSTONE.Controllers
                     offense.Add(item);
                 }
             }
-            return View(offense);
+            List<OffenseStats> sortedList = offense.OrderBy(p => p.BA).ToList();
+            sortedList.Reverse();
+            return View(sortedList);
         }
 
         public ActionResult Pitcher()
@@ -215,6 +219,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -232,6 +237,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -249,6 +255,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -266,6 +273,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
         public ActionResult Third()
@@ -282,6 +290,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -299,6 +308,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -316,6 +326,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -333,6 +344,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 
@@ -350,6 +362,7 @@ namespace CAPSTONE.Controllers
                 }
             }
             List<DefenseStats> sortedList = defense.OrderBy(p => p.FPCT).ToList();
+            sortedList.Reverse();
             return View(sortedList);
         }
 

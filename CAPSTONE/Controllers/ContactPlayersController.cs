@@ -74,9 +74,7 @@ namespace CAPSTONE.Controllers
                 message.content = lastMassage;
                 message.recipient = lastPhone;
                 twilio.Send(message, lastPhone);
-                db.ContactPlayers.Add(contactPlayer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Home", "Coaches");
             }
 
             ViewBag.PlayerID = new SelectList(db.Players, "PlayerID", "FirstName", contactPlayer.PlayerID);

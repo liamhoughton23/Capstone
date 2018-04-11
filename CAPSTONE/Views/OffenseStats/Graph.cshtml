@@ -24,7 +24,7 @@
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('number', 'Key');
+        data.addColumn('string', 'Key');
         data.addColumn('number', 'BA');
         //data.addRows([
         //  ['Mushrooms', 3],
@@ -36,7 +36,7 @@
 
         // Set chart options
         var options = {'title':'Batting Average for Everyone on Team',
-                       'width':600,
+                       'width':800,
                        'height': 500};
 
         $.ajax({
@@ -48,7 +48,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (d) {
                 $.each(d, function (index, item) {
-                    data.addRows([item.Key, item.BA]);
+                    data.addRows([item.Player.FirstName, item.BA]);
                 });
             },
             error: function (xhr) {
@@ -70,6 +70,10 @@
 
 
 <div id="Id"></div>
+
+<div class="row">
+    <input type="button" value="Back to Home" class="btn-default" onclick="location.href='@Url.Action("Home", "Coaches")'" />
+</div>
 
 
 

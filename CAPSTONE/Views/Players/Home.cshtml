@@ -4,36 +4,17 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Team Manager</h1>
+
 </div>
 
 <div id="calendar"></div>
 
-    <div class="col-md-3">
-        <h2>Playing Games</h2>
-        <p>Click Here to play the game that is coming up</p>
+    <div class="btn-group" style="padding: 10px">
         <input type="submit" value="See Data" onclick="location.href='@Url.Action("WhichStat", "Players", new { id = Model.Id })'" class="btn btn-default" />
-    </div>
-    <div class="col-md-3">
-        <h2></h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <input type="button" value="Calendar" onclick="location.href='@Url.Action("Index", "Calendar", new { id = Model.Id })'" class="btn btn-default" />
-    </div>
-    <div class="col-md-3">
-        <h2></h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <input type="button" value="Calendar" onclick="location.href='@Url.Action("PlayerCalendar", "Calendar", new { id = Model.Id })'" class="btn btn-default" />
         <input type="button" value="See Line Up" onclick="location.href='@Url.Action("LineUp", "Players", new { id = Model.Id })'" class="btn btn-default" />
-    </div>
-    <div class="col-md-3">
-        <h2></h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <input type="button" value="Find Locations" onclick="location.href='@Url.Action("Create", "Locations", new { id = Model.Id })'" class="btn btn-default" />
-    </div>
-<div class="col-md-3">
-    <h2></h2>
-    <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-    <input type="button" value="ContactCoach" onclick="location.href='@Url.Action("Create", "ContactCoaches", new { id = Model.Id })'" class="btn btn-default" />
+       <input type="button" value="ContactCoach" onclick="location.href='@Url.Action("Create", "ContactCoaches", new { id = Model.Id })'" class="btn btn-default" />
 </div>
 

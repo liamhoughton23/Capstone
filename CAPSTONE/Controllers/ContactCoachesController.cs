@@ -68,7 +68,7 @@ namespace CAPSTONE.Controllers
                 message.content = lastMassage;
                 message.recipient = lastPhone;
                 twilio.Send(message, lastPhone);
-                return RedirectToAction("Index");
+                return RedirectToAction("Home", "Players");
             }
 
          

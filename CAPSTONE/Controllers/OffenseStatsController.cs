@@ -9,9 +9,19 @@ using System.Web.Mvc;
 using CAPSTONE.Models;
 using CAPSTONE.HelperClasses;
 using Microsoft.AspNet.Identity;
+using System.Web.Script.Serialization;
 
 namespace CAPSTONE.Controllers
 {
+
+    //public class GraphViewModel
+    //{
+    //    public int PlayerID { get; set; }
+
+    //    public decimal BA { get; set; }
+    //}
+
+
     public class OffenseStatsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -31,8 +41,40 @@ namespace CAPSTONE.Controllers
 
         public ActionResult BarChart()
         {
-            return View();
+            List<OffenseStats> items = new List<OffenseStats>();
+            var db = new ApplicationDbContext();
+            
+            string user = User.Identity.GetUserId();
+            var coachRow = from row in db.Coaches where row.UserId == user select row;
+            var coachRowResult = coachRow.FirstOrDefault();
+            int coachID = coachRowResult.CoachID;
+            //query = db.Offense.Where(x => x.CoachID == coachID);
+            //query.ToList();
+            //foreach(var item in query)
+            //{
+            //    graph.PlayerID = item.PlayerID;
+            //    graph.BA = item.BA;
+            //    var json = new JavaScriptSerializer().Serialize(graph);
+
+            //}
+            //var playerRow = from row in db.Players where row.UserId == user select row;
+            //var playerRowResult = playerRow.FirstOrDefault();
+            //int playerCoachID = playerRowResult.CoachID;
+            foreach (var item in db.Offense)
+            {
+                if (item.CoachID == coachID)
+                {
+                    items.Add(item);
+                }
+            }
+            List<OffenseStats> sortedList = items.OrderBy(p => p.BA).ToList();
+            sortedList.Reverse();
+            return View(sortedList);
+            
+
         }
+
+        
 
         public JsonResult OffensiveStats()
         {
@@ -54,9 +96,10 @@ namespace CAPSTONE.Controllers
                         items.Add(item);
                     }
                 }
-
             }
-            return new JsonResult { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            List<OffenseStats> sortedList = items.OrderBy(p => p.BA).ToList();
+            sortedList.Reverse();
+            return new JsonResult { Data = sortedList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         // GET: OffenseStats/Details/5
