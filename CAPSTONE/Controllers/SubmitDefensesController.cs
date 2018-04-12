@@ -69,7 +69,7 @@ namespace CAPSTONE.Controllers
                 db.SaveChanges();
                 foreach (var item in db.TotalDefenses)
                 {
-                    if (item.Positions == submitDefense.Positions && item.PlayerID == submitDefense.PlayerID && submitDefense.Positions != 1)
+                    if (item.Positions == submitDefense.Positions && item.PlayerID == submitDefense.PlayerID && item.Positions != 1)
                     {
                         total.Edit(submitDefense.PlayerID,submitDefense.CoachID, submitDefense.Positions, submitDefense.Errors, submitDefense.InningsPlayed, submitDefense.PutOuts, submitDefense.Assists);
                         if (submitDefense.Positions == 1)

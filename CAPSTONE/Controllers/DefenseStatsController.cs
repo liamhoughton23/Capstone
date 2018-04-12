@@ -145,7 +145,7 @@ namespace CAPSTONE.Controllers
             DefenseStats defenseStats = db.Defense.Find(id);
             db.Defense.Remove(defenseStats);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Home", "Coaches");
         }
 
         protected override void Dispose(bool disposing)

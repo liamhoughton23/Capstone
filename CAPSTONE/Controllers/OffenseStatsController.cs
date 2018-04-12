@@ -45,7 +45,7 @@ namespace CAPSTONE.Controllers
             var db = new ApplicationDbContext();
             
             string user = User.Identity.GetUserId();
-            var coachRow = from row in db.Coaches where row.UserId == user select row;
+            var coachRow = from row in db.Players where row.UserId == user select row;
             var coachRowResult = coachRow.FirstOrDefault();
             int coachID = coachRowResult.CoachID;
             //query = db.Offense.Where(x => x.CoachID == coachID);
