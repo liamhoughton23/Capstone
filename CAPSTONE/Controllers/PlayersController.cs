@@ -88,7 +88,7 @@ namespace CAPSTONE.Controllers
             //player.Code = coachRowResult.Code;
             //db.Entry(player).State = EntityState.Modified;
             //db.SaveChanges();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Home", "Players");
         }
 
         // GET: Players/Edit/5
@@ -171,6 +171,7 @@ namespace CAPSTONE.Controllers
             {
                 if (item.PlayerID == statsFirst.PlayerID)
                 {
+
                     defense.Add(item);
                 }
             }

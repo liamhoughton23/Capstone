@@ -9,9 +9,16 @@ namespace CAPSTONE.HelperClasses
     {
        public decimal FPCT(decimal PO, decimal assists, decimal errors)
         {
-            decimal percentage = (decimal)(PO + assists) / (PO + assists + errors);
-            decimal rounded = Math.Round(percentage, 3);
-            return rounded;
+            try
+            {
+                decimal percentage = (decimal)(PO + assists) / (PO + assists + errors);
+                decimal rounded = Math.Round(percentage, 3);
+                return rounded;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public int TotalChances(int assists, int putOuts, int errors)

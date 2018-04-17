@@ -34,16 +34,23 @@ namespace CAPSTONE.HelperClasses
 
         public decimal SluggingPercengateCalculator(int totalBases, int officialAtBats)
         {
-            decimal sluggingPercentage = (decimal)totalBases / officialAtBats;
-            decimal rounded = Math.Round(sluggingPercentage, 3);
-            return rounded;
+                decimal sluggingPercentage = (decimal)totalBases / officialAtBats;
+                decimal rounded = Math.Round(sluggingPercentage, 3);
+                return rounded;
         }
 
         public decimal OnBasePercentageCalculator(int hits, int walks, int HBP, int onBaseInter, int onBaseDroppedThirdSt, int onBaseFC, int officialAtBats, int sacrifices)
         {
-            decimal onBasePercentage = (hits + (decimal)walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseInter + onBaseFC) / (officialAtBats + hits + walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseFC + sacrifices);
-            decimal rounded = Math.Round(onBasePercentage, 3);
-            return rounded;
+            try
+            {
+                decimal onBasePercentage = (hits + (decimal)walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseInter + onBaseFC) / (officialAtBats + hits + walks + HBP + onBaseInter + onBaseDroppedThirdSt + onBaseFC + sacrifices);
+                decimal rounded = Math.Round(onBasePercentage, 3);
+                return rounded;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public int TotalBasesCalc(int singles, int doubles, int triples, int homeRuns)       
